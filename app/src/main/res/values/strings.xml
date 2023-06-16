@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">WagePay</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="back">Back</string>
+
+    <string name="heading1">Record Wage Details</string>
+    <string name="heading2">Automatic Wage Calculation</string>
+    <string name="heading3">Payment Reports</string>
+    <string name="heading4">Wage Ledger on your Phone</string>
+
+    <string name="des1">Maintain daily wage journals of your employees in a systematic way.</string>
+    <string name="des2">Wage Pay provides realtime and error free calculation of wage.</string>
+    <string name="des3">Provides clear and concise analytics of your payments.</string>
+    <string name="des4">Track your wage records on the go anywhere and anytime.</string>
+
+</resources>
