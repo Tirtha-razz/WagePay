@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login With Phone"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:fontFamily="@font/popinsbold"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Your Phone Number"
+        android:textColorHint="@color/black"
+        android:autofillHints="phone"
+        android:inputType="number"
+        android:layout_gravity="center"
+        android:layout_margin="40sp"
+        android:fontFamily="@font/popins_regular"
+        android:background="@drawable/edtxt_background"
+        android:drawableLeft="@drawable/baseline_local_phone_24"
+        android:padding="15sp"
+        android:drawablePadding="10sp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="40dp"
+        android:textColor="@color/white"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/popins_regular"
+        android:padding="7sp"
+        android:text="Get OTP"
+        android:textAllCaps="false"
+        android:textSize="26sp" />
+
+</LinearLayout>
