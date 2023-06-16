@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Intent iNext = new Intent(SplashActivity.this, IntroActivity.class);
+
 
         new Handler().postDelayed(() -> {
 
@@ -29,10 +29,16 @@ public class SplashActivity extends AppCompatActivity {
                 editor.putBoolean("firstTime", false);
                 editor.apply();
 
-            }
-            startActivity(iNext);
-            finish();
+                Intent iNext = new Intent(SplashActivity.this, IntroActivity.class);
+                startActivity(iNext);
+                finish();
 
+            }else {
+
+                Intent iNext = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(iNext);
+                finish();
+            }
 
         }, 4000);
     }
