@@ -29,43 +29,31 @@ public class IntroActivity extends AppCompatActivity {
         nextbtn = findViewById(R.id.nextbtn);
         skipbtn = findViewById(R.id.skipButton);
 
-        backbtn.setOnClickListener(new View.OnClickListener(){
+        backbtn.setOnClickListener(v -> {
+            if(getitem(0)>0){
 
-            @Override
-            public void onClick(View v) {
-                if(getitem(0)>0){
-
-                    mSlideViewPager.setCurrentItem(getitem(-1),true);
-                }
-
+                mSlideViewPager.setCurrentItem(getitem(-1),true);
             }
+
         });
-        nextbtn.setOnClickListener(new View.OnClickListener(){
+        nextbtn.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            if(getitem(0)<3)
+                mSlideViewPager.setCurrentItem(getitem(1),true);
+            else{
 
-                if(getitem(0)<3)
-                    mSlideViewPager.setCurrentItem(getitem(1),true);
-                else{
-
-                    Intent i = new Intent(IntroActivity.this,MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-
-            }
-        });
-        skipbtn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(IntroActivity.this,MainActivity.class);
+                Intent i = new Intent(IntroActivity.this,LoginActivity.class);
                 startActivity(i);
                 finish();
-
             }
+
+        });
+        skipbtn.setOnClickListener(v -> {
+
+            Intent i = new Intent(IntroActivity.this,LoginActivity.class);
+            startActivity(i);
+            finish();
+
         });
 
         mSlideViewPager = (ViewPager) findViewById(R.id.slideViewPager);

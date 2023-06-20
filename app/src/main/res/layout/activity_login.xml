@@ -6,47 +6,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <ImageView
+        android:id="@+id/login_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="370dp"
         android:src="@drawable/login"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login With Phone"
-        android:layout_gravity="center"
+        android:text="@string/loginText"
         android:textSize="30sp"
         android:fontFamily="@font/popinsbold"
+        android:layout_gravity="center"
         />
     <EditText
+        android:id="@+id/mobile_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Your Phone Number"
+        android:hint="@string/loginHInt"
         android:textColorHint="@color/black"
         android:autofillHints="phone"
         android:inputType="number"
-        android:layout_gravity="center"
-        android:layout_margin="40sp"
+        android:layout_margin="40dp"
         android:fontFamily="@font/popins_regular"
         android:background="@drawable/edtxt_background"
-        android:drawableLeft="@drawable/baseline_local_phone_24"
+        android:drawableStart="@drawable/baseline_local_phone_24"
         android:padding="15sp"
         android:drawablePadding="10sp"
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
+        android:id="@+id/get_otp"
+        android:layout_width="338dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center"
-        android:layout_margin="40dp"
         android:textColor="@color/white"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/popins_regular"
         android:padding="7sp"
-        android:text="Get OTP"
+        android:text="@string/otpBtn"
         android:textAllCaps="false"
         android:textSize="26sp" />
 

@@ -18,9 +18,9 @@ public class ViewPagerAdapter extends PagerAdapter {
     int image[]={
 
             R.drawable.worker,
-            R.drawable.phone,
+            R.drawable.calculation,
             R.drawable.summary,
-            R.drawable.calculation
+            R.drawable.phone
 
     };
 
@@ -58,11 +58,11 @@ public class ViewPagerAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View  view = layoutInflater.inflate(R.layout.slider_layout,container,false);
 
-        ImageView slidetitleimage = (ImageView) view.findViewById(R.id.titleImage);
+        ImageView slideTitleImage = (ImageView) view.findViewById(R.id.titleImage);
         TextView slideHeading = (TextView) view.findViewById(R.id.texttitle);
         TextView slideDescription = (TextView) view.findViewById(R.id.textdescription);
 
-        slidetitleimage.setImageResource(image[position]);
+        slideTitleImage.setImageResource(image[position]);
         slideHeading.setText(headings[position]);
         slideDescription.setText(description[position]);
 

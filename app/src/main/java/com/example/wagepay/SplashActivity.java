@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
             if(isFirstTime){
 
                 SharedPreferences.Editor editor = introScreen.edit();
-                editor.putBoolean("firstTime", false);
+                editor.putBoolean("firstTime",false);
                 editor.apply();
 
                 Intent iNext = new Intent(SplashActivity.this, IntroActivity.class);
