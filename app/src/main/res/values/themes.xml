@@ -8,4 +8,18 @@
     </style>
 
     <style name="Theme.WagePay" parent="Base.Theme.WagePay" />
+
+    <!--    for toolbar navigation color-->
+    <style name="ToolbarTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <!--for toolbar app title size    -->
+    <style name="ToolbarTitleAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+
+
+
 </resources>

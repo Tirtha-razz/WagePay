@@ -6,4 +6,7 @@
     <color name="transparent">#00000000</color>
     <color name="grey">#65DDEF</color>
     <color name="test">#13510D</color>
+
+    <color name="sky_blue">#02CCFE</color>
+    <color name="dark_white">#E1D9D1</color>
 </resources>

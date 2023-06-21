@@ -17,4 +17,23 @@
     <string name="loginText">Login With Phone</string>
     <string name="loginHInt">Enter Your Phone Number</string>
     <string name="otpBtn">Get OTP</string>
+
+    <!--    sudip-->
+    <string name="user_name">Sudip Baral</string>
+    <string name="home">Home</string>
+    <string name="profile_pic">Profile picture</string>
+    <string name="attendance">Attendance</string>
+    <string name="summary">Summary</string>
+    <string name="helpAndSupport">HELP AND SUPPORT</string>
+    <string name="profile">Profile</string>
+    <string name="category">Category</string>
+    <string name="contactus">Contact us</string>
+    <string name="share">Share this app</string>
+    <string name="logout">Logout</string>
+    <string name="filter">Category filter icon</string>
+    <string name="openDrawer">Open navigation drawer</string>
+    <string name="closeDrawer">Close navigation drawer</string>
+
+
+
 </resources>
