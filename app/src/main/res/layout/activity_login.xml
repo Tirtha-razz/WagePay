@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none"
     tools:context=".LoginActivity"
-    android:orientation="vertical"
+
     >
-
-    <ImageView
-        android:id="@+id/login_image"
-        android:layout_width="match_parent"
-        android:layout_height="370dp"
-        android:src="@drawable/login"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/loginText"
-        android:textSize="30sp"
-        android:fontFamily="@font/popinsbold"
-        android:layout_gravity="center"
-        />
-    <EditText
-        android:id="@+id/mobile_number"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/loginHInt"
-        android:textColorHint="@color/black"
-        android:autofillHints="phone"
-        android:inputType="number"
-        android:layout_margin="40dp"
-        android:fontFamily="@font/popins_regular"
-        android:background="@drawable/edtxt_background"
-        android:drawableStart="@drawable/baseline_local_phone_24"
-        android:padding="15sp"
-        android:drawablePadding="10sp"
-        />
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id="@+id/login_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_280sdp"
+            android:src="@drawable/login"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loginText"
+            android:textSize="@dimen/_30ssp"
+            android:fontFamily="@font/popinsbold"
+            android:layout_gravity="center"
+            />
+        <EditText
+            android:id="@+id/mobile_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/loginHInt"
+            android:textColorHint="@color/black"
+            android:autofillHints="phone"
+            android:inputType="number"
+            android:layout_margin="@dimen/_30sdp"
+            android:fontFamily="@font/popins_regular"
+            android:background="@drawable/edtxt_background"
+            android:drawableStart="@drawable/baseline_local_phone_24"
+            android:padding="@dimen/_10sdp"
+            android:drawablePadding="@dimen/_10sdp"
+            />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/get_otp"
-        android:layout_width="338dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:background="@drawable/round_btn"
-        android:fontFamily="@font/popins_regular"
-        android:padding="7sp"
-        android:text="@string/otpBtn"
-        android:textAllCaps="false"
-        android:textSize="26sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/get_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/round_btn"
+            android:fontFamily="@font/popins_regular"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/otpBtn"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_22ssp" />
 
-</LinearLayout>
+    </LinearLayout>
+
+
+
+</ScrollView>
