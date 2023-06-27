@@ -41,93 +41,91 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:gravity="center">
 
             <EditText
                 android:id="@+id/otp1"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_36sdp"
+                android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/edtxt_background"
+                android:fontFamily="@font/popins_regular"
+                android:gravity="center"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
-                android:gravity="center"
                 android:maxLength="1"
-                android:fontFamily="@font/popins_regular"
-                android:textSize="@dimen/_20ssp"
-                android:layout_margin="@dimen/_2sdp"
-                />
+                android:textSize="@dimen/_20ssp" />
+
             <EditText
                 android:id="@+id/otp2"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_36sdp"
+                android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/edtxt_background"
+                android:fontFamily="@font/popins_regular"
+                android:gravity="center"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
-                android:gravity="center"
                 android:maxLength="1"
-                android:fontFamily="@font/popins_regular"
-                android:textSize="@dimen/_20ssp"
-                android:layout_margin="@dimen/_2sdp"
-                />
+                android:textSize="@dimen/_20ssp" />
+
             <EditText
                 android:id="@+id/otp3"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_36sdp"
+                android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/edtxt_background"
+                android:fontFamily="@font/popins_regular"
+                android:gravity="center"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
-                android:gravity="center"
                 android:maxLength="1"
-                android:fontFamily="@font/popins_regular"
-                android:textSize="@dimen/_20ssp"
-                android:layout_margin="@dimen/_2sdp"
-                />
-            <EditText
-                android:id="@+id/otp4"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_36sdp"
-                android:background="@drawable/edtxt_background"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:gravity="center"
-                android:maxLength="1"
-                android:fontFamily="@font/popins_regular"
-                android:textSize="@dimen/_20ssp"
-                android:layout_margin="@dimen/_2sdp"
-                />
+                android:textSize="@dimen/_20ssp" />
+
             <EditText
                 android:id="@+id/otp5"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_36sdp"
+                android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/edtxt_background"
+                android:fontFamily="@font/popins_regular"
+                android:gravity="center"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
-                android:gravity="center"
                 android:maxLength="1"
-                android:fontFamily="@font/popins_regular"
-                android:textSize="@dimen/_20ssp"
+                android:textSize="@dimen/_20ssp" />
+
+            <EditText
+                android:id="@+id/otp4"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_36sdp"
                 android:layout_margin="@dimen/_2sdp"
-                />
+                android:background="@drawable/edtxt_background"
+                android:fontFamily="@font/popins_regular"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="@dimen/_20ssp" />
+
             <EditText
                 android:id="@+id/otp6"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_36sdp"
+                android:layout_margin="@dimen/_2sdp"
                 android:background="@drawable/edtxt_background"
+                android:fontFamily="@font/popins_regular"
+                android:gravity="center"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
                 android:inputType="number"
-                android:gravity="center"
                 android:maxLength="1"
-                android:fontFamily="@font/popins_regular"
-                android:textSize="@dimen/_20ssp"
-                android:layout_margin="@dimen/_2sdp"
-                />
+                android:textSize="@dimen/_20ssp" />
 
         </LinearLayout>
 
