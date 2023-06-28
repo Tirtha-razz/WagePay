@@ -86,7 +86,7 @@
                 android:textSize="@dimen/_12ssp" />
 
             <EditText
-                android:id="@+id/otp5"
+                android:id="@+id/otp4"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_margin="@dimen/_2sdp"
@@ -100,7 +100,7 @@
                 android:textSize="@dimen/_12ssp" />
 
             <EditText
-                android:id="@+id/otp4"
+                android:id="@+id/otp5"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_margin="@dimen/_2sdp"
