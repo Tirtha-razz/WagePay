@@ -19,13 +19,14 @@
             android:id="@+id/login_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_280sdp"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/login"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loginText"
-            android:textSize="@dimen/_30ssp"
+            android:textSize="@dimen/_18ssp"
             android:fontFamily="@font/popinsbold"
             android:layout_gravity="center"
             />
@@ -36,6 +37,7 @@
             android:hint="@string/loginHInt"
             android:textColorHint="@color/black"
             android:autofillHints="phone"
+            android:textSize="@dimen/_12ssp"
             android:inputType="number"
             android:layout_margin="@dimen/_30sdp"
             android:fontFamily="@font/popins_regular"
@@ -57,7 +59,7 @@
             android:padding="@dimen/_5sdp"
             android:text="@string/otpBtn"
             android:textAllCaps="false"
-            android:textSize="@dimen/_22ssp" />
+            android:textSize="@dimen/_16ssp" />
 
     </LinearLayout>
 

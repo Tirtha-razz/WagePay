@@ -15,8 +15,13 @@
     <string name="des4">Track your wage records on the go anywhere and anytime.</string>
 
     <string name="loginText">Login With Phone</string>
-    <string name="loginHInt">Enter Your Phone Number</string>
+    <string name="loginHInt">Enter Phone Number</string>
     <string name="otpBtn">Get OTP</string>
+    <string name="otpVerify">OTP Verification</string>
+    <string name="otpHint">Please enter OTP sent to you.</string>
+    <string name="noOtp">Didn\'t received OTP?</string>
+    <string name="resendOtp">Resend OTP</string>
+    <string name="submitBtn">Submit</string>
 
     <!--    sudip-->
     <string name="user_name">Sudip Baral</string>

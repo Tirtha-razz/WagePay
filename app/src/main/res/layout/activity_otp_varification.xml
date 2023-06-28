@@ -23,18 +23,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OTP Verification"
-            android:textSize="@dimen/_30ssp"
+            android:text="@string/otpVerify"
+            android:textSize="@dimen/_18ssp"
             android:fontFamily="@font/popinsbold"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please enter the OTP sent to you."
-            android:textSize="@dimen/_16ssp"
+            android:text="@string/otpHint"
+            android:textSize="@dimen/_12ssp"
             android:fontFamily="@font/popins_regular"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
             />
 
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_12ssp" />
 
             <EditText
                 android:id="@+id/otp2"
@@ -69,7 +69,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_12ssp" />
 
             <EditText
                 android:id="@+id/otp3"
@@ -83,7 +83,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_12ssp" />
 
             <EditText
                 android:id="@+id/otp5"
@@ -97,7 +97,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_12ssp" />
 
             <EditText
                 android:id="@+id/otp4"
@@ -111,7 +111,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_12ssp" />
 
             <EditText
                 android:id="@+id/otp6"
@@ -125,7 +125,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_12ssp" />
 
         </LinearLayout>
 
@@ -140,18 +140,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:fontFamily="@font/popins_regular"
-                android:text="Didn't received OTP? "
+                android:text="@string/noOtp"
                 android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Resend OTP"
-                android:textSize="@dimen/_16ssp"
-                android:fontFamily="@font/popinsbold"
                 android:layout_marginTop="@dimen/_5sdp"
-                />
+                android:fontFamily="@font/popinsbold"
+                android:text="@string/resendOtp"
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -163,9 +163,9 @@
             android:background="@drawable/round_btn"
             android:fontFamily="@font/popins_regular"
             android:padding="@dimen/_5sdp"
-            android:text="Submit"
+            android:text="@string/submitBtn"
             android:textAllCaps="false"
-            android:textSize="@dimen/_22ssp" />
+            android:textSize="@dimen/_16ssp" />
     </LinearLayout>
 
 </ScrollView>
