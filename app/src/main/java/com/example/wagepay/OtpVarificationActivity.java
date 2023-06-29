@@ -29,19 +29,17 @@ public class OtpVarificationActivity extends AppCompatActivity {
         input5 = findViewById(R.id.otp5);
         input6 = findViewById(R.id.otp6);
 
-       verifyOtp.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
 
-                if(!input1.getText().toString().trim().isEmpty() && !input2.getText().toString().trim().isEmpty() && !input3.getText().toString().trim().isEmpty() && !input4.getText().toString().trim().isEmpty()){
-                        Toast.makeText(OtpVarificationActivity.this, "OTP Verified", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(OtpVarificationActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(OtpVarificationActivity.this, "Please enter all numbers.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        });
+       verifyOtp.setOnClickListener(v -> {
+
+           if(!input1.getText().toString().trim().isEmpty() && !input2.getText().toString().trim().isEmpty() && !input3.getText().toString().trim().isEmpty() && !input4.getText().toString().trim().isEmpty() && !input5.getText().toString().trim().isEmpty() && !input6.getText().toString().trim().isEmpty()){
+                   Toast.makeText(OtpVarificationActivity.this, "OTP Verified", Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(OtpVarificationActivity.this, MainActivity.class);
+                   startActivity(intent);
+               }else{
+                   Toast.makeText(OtpVarificationActivity.this, "Please enter all numbers.", Toast.LENGTH_SHORT).show();
+               }
+           });
 
        numberOtpMove();
     }
