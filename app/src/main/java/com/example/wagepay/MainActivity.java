@@ -1,9 +1,5 @@
 package com.example.wagepay;
 
-import static com.example.wagepay.R.id.attendance;
-import static com.example.wagepay.R.id.home;
-import static com.example.wagepay.R.id.profile;
-
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +16,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;

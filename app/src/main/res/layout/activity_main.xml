@@ -79,7 +79,8 @@
             android:layout_alignParentBottom="true"
             app:itemTextColor="@drawable/nav_tint_selector"
             app:itemIconTint="@drawable/nav_tint_selector"
-            app:menu="@menu/bottom_menu" />
+            app:menu="@menu/bottom_menu"
+            />
 
 
     </RelativeLayout>
