@@ -15,16 +15,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //defining variables
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
+    ArrayList<WorkRecyclerModel> arrWork = new ArrayList<>();
 
     BottomNavigationView bottomNavigationView;
 
@@ -106,6 +112,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         //bottom navigation and fragment finish here
 
+        //for recycler view of work
+        RecyclerView recyclerView = findViewById(R.id.work_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this ,LinearLayoutManager.HORIZONTAL,false));
+
+        arrWork.add(new WorkRecyclerModel("work 1"));
+        arrWork.add(new WorkRecyclerModel("work 2"));
+        arrWork.add(new WorkRecyclerModel("work 3"));
+        arrWork.add(new WorkRecyclerModel("work 4"));
+        arrWork.add(new WorkRecyclerModel("work 5"));
+        arrWork.add(new WorkRecyclerModel("work 6"));
+        arrWork.add(new WorkRecyclerModel("work 7"));
+        arrWork.add(new WorkRecyclerModel("+"));
+
+        WorkRecyclerAdapter adapter = new WorkRecyclerAdapter(this,arrWork);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
