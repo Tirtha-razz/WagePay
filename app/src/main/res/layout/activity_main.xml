@@ -71,7 +71,7 @@
             app:backgroundTint="@color/green"
             app:tint="@color/white"
             android:layout_marginBottom="20dp"
-            android:id="@+id/btnOpenDialog"
+            android:id="@+id/floatingButton"
             android:src="@drawable/add_icon"
             android:layout_above="@+id/bottomNav"
             android:layout_alignParentEnd="true"

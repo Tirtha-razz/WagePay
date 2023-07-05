@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addNewWorker"
+        android:textStyle="bold"
+        android:textSize="@dimen/_18ssp"
+        android:layout_margin="@dimen/_10sdp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="@dimen/_15ssp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:textStyle="bold"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:inputType="textCapWords"
+        android:autofillHints="name"
+        android:background="@drawable/custom_form_design"
+        android:textSize="@dimen/_13ssp"
+        android:padding="@dimen/_10sdp"
+        android:hint="@string/enterWorkerName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/address"
+        android:textSize="@dimen/_15ssp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:textStyle="bold"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:inputType="text"
+        android:autofillHints="postalAddress"
+        android:background="@drawable/custom_form_design"
+        android:textSize="@dimen/_13ssp"
+        android:padding="@dimen/_10sdp"
+        android:hint="@string/enterWorkerAddress"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/number"
+        android:textSize="@dimen/_15ssp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:autofillHints="phone"
+        android:background="@drawable/custom_form_design"
+        android:textSize="@dimen/_13ssp"
+        android:padding="@dimen/_10sdp"
+        android:hint="@string/enterWorkerPhoneNumber"
+        android:inputType="phone"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="@dimen/_10sdp"/>
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_10sdp">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:text="@string/male"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:text="@string/female"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:text="@string/other"/>
+
+        </RadioGroup>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wageRate"
+        android:textSize="@dimen/_15ssp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/custom_form_design"
+        android:textSize="@dimen/_13ssp"
+        android:padding="@dimen/_10sdp"
+        android:hint="@string/enterWageRate"
+        android:inputType="number"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:text="@string/save"
+        android:textSize="@dimen/_15ssp"/>
+
+
+</LinearLayout>

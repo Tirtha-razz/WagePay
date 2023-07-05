@@ -5,12 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/green"
-    android:theme="@style/ToolbarTheme"
     app:buttonGravity="center_vertical"
-    app:navigationIcon="@drawable/menu_icon"
-    app:title="@string/user_name"
-    app:titleTextColor="#FFFFFF"
+    app:theme="@style/ToolbarTheme"
+    app:titleTextColor="@color/white"
     app:titleTextAppearance="@style/ToolbarTitleAppearance">
 
+<!--    <ImageButton-->
+<!--        android:id="@+id/toolbar_navigation"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/menu_icon"-->
+<!--        android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--        android:contentDescription="Navigation" />-->
+
+    <!-- Rest of your toolbar layout -->
 
 </androidx.appcompat.widget.Toolbar>
+

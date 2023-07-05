@@ -41,5 +41,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--    For form-->
+
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="addNewWorker">Add New Worker</string>
+    <string name="enterWorkerName">Enter Worker Name</string>
+    <string name="address">Address</string>
+    <string name="enterWorkerAddress">Enter Worker Address</string>
+    <string name="number">Number</string>
+    <string name="enterWorkerPhoneNumber">Enter Worker Phone Number</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="wageRate">Wage Rate</string>
+    <string name="enterWageRate">Enter Worker Wage Rate (Rs/Day)</string>
 
 </resources>

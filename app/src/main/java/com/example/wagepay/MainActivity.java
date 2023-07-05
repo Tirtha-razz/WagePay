@@ -1,6 +1,7 @@
 package com.example.wagepay;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    FloatingActionButton floatingActionButton;
 
     ArrayList<WorkRecyclerModel> arrWork = new ArrayList<>();
 
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //
 
         // toolbar
+        toolbar.setTitle("Sudip Baral");
         setSupportActionBar(toolbar);
 
 
@@ -127,6 +131,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         WorkRecyclerAdapter adapter = new WorkRecyclerAdapter(this,arrWork);
         recyclerView.setAdapter(adapter);
+
+        //for floating action button
+        floatingActionButton = findViewById(R.id.floatingButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start Activity 2
+
+
+                startActivity(new Intent(MainActivity.this, WorkerFormActivity.class));
+            }
+        });
+
     }
 
     @Override

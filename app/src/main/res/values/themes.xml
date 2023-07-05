@@ -17,7 +17,7 @@
 
     <!--for toolbar app title size    -->
     <style name="ToolbarTitleAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
     </style>
 
 
