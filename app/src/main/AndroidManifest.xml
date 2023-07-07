@@ -13,6 +13,9 @@
         android:theme="@style/Theme.WagePay"
         tools:targetApi="31">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".OtpVarificationActivity"
             android:exported="false" />
         <activity
@@ -30,9 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".WorkerFormActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".WorkerFormActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

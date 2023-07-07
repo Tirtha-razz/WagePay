@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -79,7 +80,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         bottomNavigationView = findViewById(R.id.bottomNav);
 
-        //
+        //for home navigation clicked while app is opned
+        Menu menu = navigationView.getMenu();
+        MenuItem homeMenuItem = menu.findItem(R.id.home); // Replace nav_home with the ID of your home menu item
+        homeMenuItem.setChecked(true); // Set the home menu item as checked
 
         // toolbar
         toolbar.setTitle("Sudip Baral");
@@ -158,6 +162,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return true;
+
+        // Handle item selection here
+        int itemId = item.getItemId();
+        if (itemId == R.id.home) {
+            // Start Activity1
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        } else if (itemId == R.id.profile) {
+            // Start Activity2
+            startActivity(new Intent(this, ProfileActivity.class));
+            return true;
+        }
+        return false;
     }
 }

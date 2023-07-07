@@ -58,4 +58,9 @@
     <string name="wageRate">Wage Rate</string>
     <string name="enterWageRate">Enter Worker Wage Rate (Rs/Day)</string>
 
+    <string name="enterYourName">Enter Your Full Name</string>
+    <string name="enterYourAddress">Enter Your Address</string>
+    <string name="enterYourNumber">Enter Your Number</string>
+    <string name="saveChange">Save Changes</string>
+
 </resources>

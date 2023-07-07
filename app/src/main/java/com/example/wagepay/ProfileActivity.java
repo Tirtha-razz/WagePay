@@ -1,5 +1,9 @@
 package com.example.wagepay;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,15 +11,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+public class ProfileActivity extends AppCompatActivity {
 
-public class WorkerFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.worker_form);
+        setContentView(R.layout.activity_profile);
 
         //set the status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -32,7 +33,7 @@ public class WorkerFormActivity extends AppCompatActivity {
 
         //for toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Add New Worker");
+        toolbar.setTitle("Profile");
         setSupportActionBar(toolbar);
 
         // add back arrow to toolbar
@@ -40,8 +41,6 @@ public class WorkerFormActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
-
     }
 
     //this is also for toolbar when back button is pressed it goes to previous activity
@@ -54,5 +53,4 @@ public class WorkerFormActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }
