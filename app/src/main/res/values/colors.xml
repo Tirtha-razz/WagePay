@@ -17,6 +17,7 @@
     <color name="dark_white">#E1D9D1</color>
     <color name="grey_b">#E8EBEC</color>
     <color name="yellow">#FEE12B</color>
+    <color name="lighter_black">#32000000</color>
 
 
 </resources>
