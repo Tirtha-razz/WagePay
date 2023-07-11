@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         bottomNavigationView = findViewById(R.id.bottomNav);
 
-        //for home navigation clicked while app is opned
+        //for home navigation clicked while app is opened
         Menu menu = navigationView.getMenu();
         MenuItem homeMenuItem = menu.findItem(R.id.home); // Replace nav_home with the ID of your home menu item
         homeMenuItem.setChecked(true); // Set the home menu item as checked
@@ -113,12 +113,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onNavigationItemSelected( MenuItem item) {
                 if (item.getItemId() == R.id.home) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, homeFragment).commit();
+                    floatingActionButton.setVisibility(View.VISIBLE); // Show FAB in HomeFragment
                     return true;
                 } else if (item.getItemId() == R.id.attendance) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, attendanceFragment).commit();
+                    floatingActionButton.setVisibility(View.GONE); // Hide FAB in AttendanceFragment
                     return true;
                 }else if (item.getItemId() == R.id.summary) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, summaryFragment).commit();
+                    floatingActionButton.setVisibility(View.GONE); // Hide FAB in SummaryFragment
                     return true;
                 }
                 return false;
