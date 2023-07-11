@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     HomeFragment homeFragment = new HomeFragment();
     AttendanceFragment attendanceFragment = new AttendanceFragment();
 
+    SummaryFragment summaryFragment = new SummaryFragment();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return true;
                 } else if (item.getItemId() == R.id.attendance) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, attendanceFragment).commit();
+                    return true;
+                }else if (item.getItemId() == R.id.summary) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, summaryFragment).commit();
                     return true;
                 }
                 return false;
