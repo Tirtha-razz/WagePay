@@ -23,6 +23,10 @@
     <string name="resendOtp">Resend OTP</string>
     <string name="submitBtn">Submit</string>
 
+    <string name="advanceDetails">Advance Paid Details</string>
+    <string name="dueDetails">Due Payment Details</string>
+    <string name="paymentHistory">Payment History</string>
+
     <!--    sudip-->
     <string name="user_name">Sudip Baral</string>
     <string name="home">Home</string>
