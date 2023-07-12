@@ -2,24 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="@dimen/_150sdp"
     android:background="@color/green"
     android:gravity="bottom"
-    android:padding="20dp">
+    android:padding="@dimen/_12sdp">
     
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
         android:src="@drawable/profile_pic"
         android:contentDescription="@string/profile_pic"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/user_name"
+        android:fontFamily="@font/popins_regular"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold" />
 
 

@@ -18,6 +18,8 @@
     <color name="grey_b">#E8EBEC</color>
     <color name="yellow">#FEE12B</color>
     <color name="lighter_black">#32000000</color>
+    <color name="medium_black">#9A000000</color>
+    <color name="red">#FF0000</color>
 
 
 </resources>
