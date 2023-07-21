@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339878519586",
+    "project_id": "wagepay-2e5c7",
+    "storage_bucket": "wagepay-2e5c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339878519586:android:44f5befffe4593cf69bb7b",
+        "android_client_info": {
+          "package_name": "com.example.wagepay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339878519586-e7p04ogmrnusn6rcjrrk4jdai7m2t7me.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFmVrNkJ1yvCXRkLHf_7oZOL4qkyzEd0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339878519586-e7p04ogmrnusn6rcjrrk4jdai7m2t7me.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
