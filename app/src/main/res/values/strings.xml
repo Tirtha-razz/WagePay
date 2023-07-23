@@ -66,5 +66,7 @@
     <string name="enterYourAddress">Enter Your Address</string>
     <string name="enterYourNumber">Enter Your Number</string>
     <string name="saveChange">Save Changes</string>
+    <string name="day">Wednesday</string>
+    <string name="date">2023/07/13</string>
 
 </resources>

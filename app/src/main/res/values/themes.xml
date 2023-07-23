@@ -21,6 +21,15 @@
     </style>
 
 
+    <!--for datePicker header and buttons color    -->
+    <style name="DatePickerButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/black</item>
+    </style>
 
+    <style name="DatePickerDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorAccent">@color/green</item>
+        <item name="android:buttonBarButtonStyle">@style/DatePickerButtonStyle</item>
+    </style>
+    <!--for datePicker header and buttons color finishes here   -->
 
 </resources>
