@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/loginHInt"
             android:textColorHint="@color/black"
-            android:autofillHints="phone"
+            android:autofillHints="phone                                                                                                                                                                                                                      "
             android:textSize="@dimen/_12ssp"
             android:inputType="number"
             android:layout_margin="@dimen/_30sdp"
@@ -47,20 +47,31 @@
             android:drawablePadding="@dimen/_10sdp"
             />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/get_otp"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_30sdp"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:background="@drawable/round_btn"
-            android:fontFamily="@font/popins_regular"
-            android:padding="@dimen/_5sdp"
-            android:text="@string/otpBtn"
-            android:textAllCaps="false"
-            android:textSize="@dimen/_16ssp" />
+            android:layout_height="wrap_content">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/get_otp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/popins_regular"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/otpBtn"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_16ssp" />
+            
+            <ProgressBar
+                android:id="@+id/progressbar_sending_otp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
 
 

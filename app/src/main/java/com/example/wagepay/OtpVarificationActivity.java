@@ -1,5 +1,6 @@
 package com.example.wagepay;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -13,11 +14,25 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 public class OtpVarificationActivity extends AppCompatActivity {
 
     EditText input1,input2, input3, input4, input5, input6;
+
+    String getotpbackend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +67,7 @@ public class OtpVarificationActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(flags);
         }
 
-        Button verifyOtp = findViewById(R.id.submit);
+        final Button verifyOtp = findViewById(R.id.submit);
 
         input1 = findViewById(R.id.otp1);
         input2 = findViewById(R.id.otp2);
@@ -61,19 +76,93 @@ public class OtpVarificationActivity extends AppCompatActivity {
         input5 = findViewById(R.id.otp5);
         input6 = findViewById(R.id.otp6);
 
+        TextView textView = findViewById(R.id.textNumberShow);
+        textView.setText(String.format(
+                "+977-%s", getIntent().getStringExtra("mobile")
+        ));
+
+        getotpbackend = getIntent().getStringExtra("backendotp");
+
+        final ProgressBar progressBarverifyotp = findViewById(R.id.progressbar_verify_otp);
+
 
        verifyOtp.setOnClickListener(v -> {
 
            if(!input1.getText().toString().trim().isEmpty() && !input2.getText().toString().trim().isEmpty() && !input3.getText().toString().trim().isEmpty() && !input4.getText().toString().trim().isEmpty() && !input5.getText().toString().trim().isEmpty() && !input6.getText().toString().trim().isEmpty()){
-                   Toast.makeText(OtpVarificationActivity.this, "OTP Verified", Toast.LENGTH_SHORT).show();
-                   Intent intent = new Intent(OtpVarificationActivity.this, MainActivity.class);
-                   startActivity(intent);
+               String entercodeotp = input1.getText().toString()+
+                       input2.getText().toString()+
+                       input3.getText().toString()+
+                       input4.getText().toString()+
+                       input5.getText().toString()+
+                       input6.getText().toString();
+
+               if(getotpbackend!=null){
+                   progressBarverifyotp.setVisibility(View.VISIBLE);
+                   verifyOtp.setVisibility(View.INVISIBLE);
+
+                   PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
+                           getotpbackend, entercodeotp
+                   );
+                   FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
+                           .addOnCompleteListener(new OnCompleteListener<AuthResult>(){
+                               @Override
+                               public void onComplete(@NonNull Task<AuthResult> task) {
+                                   progressBarverifyotp.setVisibility(View.GONE);
+                                   verifyOtp.setVisibility(View.VISIBLE);
+
+                                   if (task.isSuccessful()){
+                                       Toast.makeText(OtpVarificationActivity.this, "OTP Verified", Toast.LENGTH_SHORT).show();
+                                       Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                       startActivity(intent);
+                                   }else{
+                                       Toast.makeText(OtpVarificationActivity.this, "Enter correct otp", Toast.LENGTH_SHORT).show();
+                                   }
+                               }
+                           });
+
+               }else{
+                   Toast.makeText(OtpVarificationActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+               }
                }else{
                    Toast.makeText(OtpVarificationActivity.this, "Please enter all numbers.", Toast.LENGTH_SHORT).show();
                }
            });
 
        numberOtpMove();
+
+        TextView resendlabel = findViewById(R.id.resendOtp);
+
+        resendlabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                        "+977" + getIntent().getStringExtra("mobile"),
+                        60,
+                        TimeUnit.SECONDS,
+                        OtpVarificationActivity.this,
+                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                            @Override
+                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                            }
+
+                            @Override
+                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                Toast.makeText(OtpVarificationActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onCodeSent(@NonNull String newbackendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                getotpbackend = newbackendotp;
+                                Toast.makeText(OtpVarificationActivity.this, "OTP sent successfully", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                );
+            }
+        });
+
     }
 
     private void numberOtpMove() {
