@@ -34,8 +34,18 @@
             android:text="@string/otpHint"
             android:textSize="@dimen/_12ssp"
             android:fontFamily="@font/popins_regular"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_margin="@dimen/_4sdp"
             />
+
+        <TextView
+            android:id="@+id/textNumberShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/popins_regular"
+            android:layout_marginTop="@dimen/_4sdp"
+            />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -140,12 +150,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:fontFamily="@font/popins_regular"
                 android:text="@string/noOtp"
                 android:textSize="@dimen/_12ssp" />
 
             <TextView
+                android:id="@+id/resendOtp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -154,18 +165,29 @@
                 android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/submit"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_30sdp"
-            android:textColor="@color/white"
-            android:background="@drawable/round_btn"
-            android:fontFamily="@font/popins_regular"
-            android:padding="@dimen/_5sdp"
-            android:text="@string/submitBtn"
-            android:textAllCaps="false"
-            android:textSize="@dimen/_16ssp" />
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_30sdp"
+                android:textColor="@color/white"
+                android:background="@drawable/round_btn"
+                android:fontFamily="@font/popins_regular"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/submitBtn"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_16ssp" />
+            <ProgressBar
+                android:id="@+id/progressbar_verify_otp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
 
 </ScrollView>
