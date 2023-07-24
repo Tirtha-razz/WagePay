@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "339878519586-fbibr96qi38segm55a0429kejvcdfui3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wagepay",
+            "certificate_hash": "c2640299947d16d98ad9f39ce9ff5630cfec2b2f"
+          }
+        },
+        {
           "client_id": "339878519586-e7p04ogmrnusn6rcjrrk4jdai7m2t7me.apps.googleusercontent.com",
           "client_type": 3
         }
