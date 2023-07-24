@@ -24,6 +24,7 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
@@ -136,30 +137,31 @@ public class OtpVarificationActivity extends AppCompatActivity {
         resendlabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        "+977" + getIntent().getStringExtra("mobile"),
-                        60,
-                        TimeUnit.SECONDS,
-                        OtpVarificationActivity.this,
-                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                            }
+                String phoneNumber = "+977" + getIntent().getStringExtra("mobile");
+                PhoneAuthOptions options =
+                        PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
+                                .setPhoneNumber(phoneNumber)
+                                .setTimeout(60L, TimeUnit.SECONDS)
+                                .setActivity(OtpVarificationActivity.this)
+                                .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                    @Override
+                                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                    }
 
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText(OtpVarificationActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                    @Override
+                                    public void onVerificationFailed(@NonNull FirebaseException e) {
+                                        Toast.makeText(OtpVarificationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
 
-                            }
+                                    @Override
+                                    public void onCodeSent(@NonNull String newbackendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                        getotpbackend = newbackendotp;
+                                        Toast.makeText(OtpVarificationActivity.this, "OTP sent successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .build();
 
-                            @Override
-                            public void onCodeSent(@NonNull String newbackendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                getotpbackend = newbackendotp;
-                                Toast.makeText(OtpVarificationActivity.this, "OTP sent successfully", Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-                );
+                PhoneAuthProvider.verifyPhoneNumber(options);
             }
         });
 
@@ -264,3 +266,6 @@ public class OtpVarificationActivity extends AppCompatActivity {
 
     }
 }
+
+
+//test

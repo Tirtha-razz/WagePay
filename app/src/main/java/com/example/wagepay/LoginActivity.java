@@ -16,7 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
@@ -73,36 +75,39 @@ public class LoginActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.VISIBLE);
                         getOtpBtn.setVisibility(View.INVISIBLE);
 
-                        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                "+977" + enterNumber.getText().toString(),
-                                60,
-                                TimeUnit.SECONDS,
-                                LoginActivity.this,
-                                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                    @Override
-                                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                        progressBar.setVisibility(View.GONE);
-                                        getOtpBtn.setVisibility(View.VISIBLE);
-                                    }
+                        String phoneNumber = "+977" + enterNumber.getText().toString();
+                        PhoneAuthOptions options =
+                                PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
+                                        .setPhoneNumber(phoneNumber)
+                                        .setTimeout(60L, TimeUnit.SECONDS)
+                                        .setActivity(LoginActivity.this)
+                                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                            @Override
+                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                                progressBar.setVisibility(View.GONE);
+                                                getOtpBtn.setVisibility(View.VISIBLE);
+                                            }
 
-                                    @Override
-                                    public void onVerificationFailed(@NonNull FirebaseException e) {
-                                        progressBar.setVisibility(View.GONE);
-                                        getOtpBtn.setVisibility(View.VISIBLE);
-                                        Toast.makeText(LoginActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                            @Override
+                                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                                progressBar.setVisibility(View.GONE);
+                                                getOtpBtn.setVisibility(View.VISIBLE);
+                                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
 
-                                    }
-                                    @Override
-                                    public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                        progressBar.setVisibility(View.GONE);
-                                        getOtpBtn.setVisibility(View.VISIBLE);
-                                        Intent intent = new Intent(getApplicationContext(),OtpVarificationActivity.class);
-                                        intent.putExtra("mobile",enterNumber.getText().toString());
-                                        intent.putExtra("backendotp",backendotp);
-                                        startActivity(intent);
-                                    }
-                                }
-                        );
+                                            @Override
+                                            public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                                progressBar.setVisibility(View.GONE);
+                                                getOtpBtn.setVisibility(View.VISIBLE);
+                                                Intent intent = new Intent(getApplicationContext(),OtpVarificationActivity.class);
+                                                intent.putExtra("mobile",enterNumber.getText().toString());
+                                                intent.putExtra("backendotp",backendotp);
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .build();
+
+                        PhoneAuthProvider.verifyPhoneNumber(options);
                     }else{
                         Toast.makeText(LoginActivity.this, "Please enter Correct mobile number.", Toast.LENGTH_SHORT).show();
                     }
@@ -113,3 +118,5 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 }
+
+
