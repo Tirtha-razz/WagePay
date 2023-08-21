@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.green));
         }
 
-
-
         // Set the status bar icons' color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View decorView = getWindow().getDecorView();
@@ -154,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         floatingActionButton.setOnClickListener(v -> {
             // Start Activity 2
 
-
             startActivity(new Intent(MainActivity.this, WorkerFormActivity.class));
         });
     }
@@ -183,10 +180,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this, ProfileActivity.class));
             return true;
         } else if (itemId == R.id.logout) {
-            performLogout();
+            logout();
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
-
         return false;
     }
 
@@ -222,18 +219,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void logout() {
         // Log out the user and redirect to the login screen
-        // You can add your own logic here, such as showing a logout dialog
-        // or navigating to the login activity
         sessionManager.endSession();
         finish(); // Close the current activity
-    }
-
-    private void performLogout() {
-        // Clear user session (e.g., clear shared preferences, user data)
-        // Navigate back to the login screen
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
     }
 }
