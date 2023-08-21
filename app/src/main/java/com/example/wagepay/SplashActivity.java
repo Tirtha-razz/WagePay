@@ -15,10 +15,19 @@ import androidx.core.content.ContextCompat;
 public class SplashActivity extends AppCompatActivity {
 
     SharedPreferences introScreen;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sessionManager = new SessionManager(this);
+
+        if (!sessionManager.isSessionValid()) {
+            // User is not logged in, show login activity
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_splash);
 
         //set the status bar color
@@ -46,7 +55,6 @@ public class SplashActivity extends AppCompatActivity {
             flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             decorView.setSystemUiVisibility(flags);
         }
-
 
         new Handler().postDelayed(() -> {
 

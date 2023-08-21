@@ -1,9 +1,9 @@
 package com.example.wagepay;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -43,11 +42,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     SummaryFragment summaryFragment = new SummaryFragment();
 
+    private static final long SESSION_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 1 week
+    private static final long LOGOUT_DELAY_MS = 5 * 60 * 1000; // 5 minutes delay for logout
+
+    private SessionManager sessionManager;
+    private final Handler logoutHandler = new Handler();
+    private final Runnable logoutRunnable = this::logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sessionManager = new SessionManager(this);
+        sessionManager.startSession(SESSION_DURATION_MS);
 
         //set the status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -107,25 +115,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment,homeFragment).commit();
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected( MenuItem item) {
-                if (item.getItemId() == R.id.home) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, homeFragment).commit();
-                    floatingActionButton.setVisibility(View.VISIBLE); // Show FAB in HomeFragment
-                    return true;
-                } else if (item.getItemId() == R.id.attendance) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, attendanceFragment).commit();
-                    floatingActionButton.setVisibility(View.GONE); // Hide FAB in AttendanceFragment
-                    return true;
-                }else if (item.getItemId() == R.id.summary) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, summaryFragment).commit();
-                    floatingActionButton.setVisibility(View.GONE); // Hide FAB in SummaryFragment
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.home) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, homeFragment).commit();
+                floatingActionButton.setVisibility(View.VISIBLE); // Show FAB in HomeFragment
+                return true;
+            } else if (item.getItemId() == R.id.attendance) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, attendanceFragment).commit();
+                floatingActionButton.setVisibility(View.GONE); // Hide FAB in AttendanceFragment
+                return true;
+            }else if (item.getItemId() == R.id.summary) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment, summaryFragment).commit();
+                floatingActionButton.setVisibility(View.GONE); // Hide FAB in SummaryFragment
+                return true;
             }
+            return false;
         });
         //bottom navigation and fragment finish here
 
@@ -147,16 +151,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //for floating action button
         floatingActionButton = findViewById(R.id.floatingButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start Activity 2
+        floatingActionButton.setOnClickListener(v -> {
+            // Start Activity 2
 
 
-                startActivity(new Intent(MainActivity.this, WorkerFormActivity.class));
-            }
+            startActivity(new Intent(MainActivity.this, WorkerFormActivity.class));
         });
-
     }
 
     @Override
@@ -182,7 +182,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Start Activity2
             startActivity(new Intent(this, ProfileActivity.class));
             return true;
+        } else if (itemId == R.id.logout) {
+            performLogout();
+            return true;
         }
+
         return false;
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+
+        // Reset the session expiration timestamp and cancel any pending logout
+        sessionManager.startSession(SESSION_DURATION_MS);
+        logoutHandler.removeCallbacks(logoutRunnable);
+        logoutHandler.postDelayed(logoutRunnable, LOGOUT_DELAY_MS);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Schedule logout when the session expires
+        logoutHandler.postDelayed(logoutRunnable, SESSION_DURATION_MS);
+
+        if (!sessionManager.isSessionValid()) {
+            logout();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Remove the pending logout callbacks when the activity is paused
+        logoutHandler.removeCallbacks(logoutRunnable);
+    }
+
+    private void logout() {
+        // Log out the user and redirect to the login screen
+        // You can add your own logic here, such as showing a logout dialog
+        // or navigating to the login activity
+        sessionManager.endSession();
+        finish(); // Close the current activity
+    }
+
+    private void performLogout() {
+        // Clear user session (e.g., clear shared preferences, user data)
+        // Navigate back to the login screen
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

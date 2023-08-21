@@ -1,6 +1,7 @@
 package com.example.wagepay;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -27,9 +28,19 @@ public class LoginActivity extends AppCompatActivity {
     EditText enterNumber;
     Button getOtpBtn;
 
+    private SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sessionManager = new SessionManager(this);
+
+        if (sessionManager.isSessionValid()) {
+            // User is already logged in, skip login and go to main activity
+            navigateToMainActivity();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         //set the status bar color
@@ -116,6 +127,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Close the login activity
     }
 }
 
