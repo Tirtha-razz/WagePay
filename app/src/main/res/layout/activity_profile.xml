@@ -75,6 +75,7 @@
 
                 />
             <EditText
+                android:id="@+id/newName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_30sdp"
@@ -97,6 +98,7 @@
                 android:layout_marginHorizontal="@dimen/_30sdp"
                 />
             <EditText
+                android:id="@+id/newAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_30sdp"
@@ -111,7 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/number"
+                android:text="@string/business"
                 android:textColor="@color/black"
                 android:fontFamily="@font/popins_regular"
                 android:textStyle="bold"
@@ -120,18 +122,20 @@
                 android:layout_marginHorizontal="@dimen/_30sdp"
                 />
             <EditText
+                android:id="@+id/newBusiness"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_30sdp"
                 android:fontFamily="@font/popins_regular"
-                android:autofillHints="phone"
+                android:autofillHints="businessName"
                 android:background="@drawable/custom_form_design"
                 android:textSize="@dimen/_12ssp"
                 android:padding="@dimen/_10sdp"
-                android:hint="@string/enterYourNumber"
+                android:hint="@string/enterYourBusiness"
                 android:inputType="phone"
-                />
+                tools:ignore="InvalidId" />
             <Button
+                android:id="@+id/saveChanges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_30sdp"

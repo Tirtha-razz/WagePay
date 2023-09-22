@@ -53,6 +53,7 @@
     <string name="enterWorkerName">Enter Worker Name</string>
     <string name="address">Address</string>
     <string name="enterWorkerAddress">Enter Worker Address</string>
+    <string name="business">Business</string>
     <string name="number">Number</string>
     <string name="enterWorkerPhoneNumber">Enter Worker Phone Number</string>
     <string name="gender">Gender</string>
@@ -64,7 +65,7 @@
 
     <string name="enterYourName">Enter Your Full Name</string>
     <string name="enterYourAddress">Enter Your Address</string>
-    <string name="enterYourNumber">Enter Your Number</string>
+    <string name="enterYourBusiness">Enter Business Type</string>
     <string name="saveChange">Save Changes</string>
     <string name="day">Wednesday</string>
     <string name="date">2023/07/13</string>

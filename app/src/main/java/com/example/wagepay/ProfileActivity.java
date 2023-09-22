@@ -13,12 +13,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageView;
+
+    EditText newName, newAddress, newBusiness;
+    Button saveChanges;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,10 @@ public class ProfileActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        newName = findViewById(R.id.newName);
+        newAddress= findViewById(R.id.newAddress);
+        newBusiness = findViewById(R.id.newBusiness);
+
         //for image picker
         imageView = findViewById(R.id.profileImage);
 
@@ -63,6 +73,34 @@ public class ProfileActivity extends AppCompatActivity {
                         .start();
             }
         });
+
+        saveChanges = findViewById(R.id.saveChanges);
+        saveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Prepare the data to pass
+                String newNameValue = newName.getText().toString();
+                String newAddressValue = newAddress.getText().toString();
+                String newBusinessValue = newBusiness.getText().toString();
+
+                // Create a Bundle to hold the data
+                Bundle bundle = new Bundle();
+                bundle.putString("newName", newNameValue);
+                bundle.putString("newAddress", newAddressValue);
+                bundle.putString("newBusiness", newBusinessValue);
+
+                // Create an intent to start the target activity
+                Intent intent = new Intent(ProfileActivity.this, OtpVarificationActivity.class);
+
+                // Attach the Bundle to the intent
+                intent.putExtras(bundle);
+
+                // Start the new activity
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     //this is also for toolbar when back button is pressed it goes to previous activity

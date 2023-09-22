@@ -26,6 +26,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +40,8 @@ public class OtpVarificationActivity extends AppCompatActivity {
 
     String getotpbackend;
     String phoneNo;
+
+    String newName, newAddress, newBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +85,16 @@ public class OtpVarificationActivity extends AppCompatActivity {
         input5 = findViewById(R.id.otp5);
         input6 = findViewById(R.id.otp6);
 
+
+        // getting data from profile
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            newName = bundle.getString("newName");
+            newAddress = bundle.getString("newAddress");
+            newBusiness = bundle.getString("newBusiness");
+        }
+
+
         TextView textView = findViewById(R.id.textNumberShow);
         phoneNo = getIntent().getStringExtra("mobile");
         textView.setText(String.format(
@@ -114,7 +131,9 @@ public class OtpVarificationActivity extends AppCompatActivity {
                                    verifyOtp.setVisibility(View.VISIBLE);
 
                                    if (task.isSuccessful()){
-                                       Toast.makeText(OtpVarificationActivity.this, "OTP Verified", Toast.LENGTH_SHORT).show();
+                                       //inserting data to firebase database
+
+                                       storeNewUserData(newName, newAddress, newBusiness, phoneNo);
                                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                        startActivity(intent);
@@ -167,6 +186,35 @@ public class OtpVarificationActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void storeNewUserData(String newName, String newAddress, String newBusiness, String phoneNo) {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference reference = rootNode.getReference("Users");
+// Check if the user already exists in the database
+        reference.child(phoneNo).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // User already exists, update their profile details
+                    UserHelperClass existingUser = dataSnapshot.getValue(UserHelperClass.class);
+
+                    // Assuming you have a User object with updated details
+                    UserHelperClass updatedUser = new UserHelperClass(newName, newAddress, newBusiness, phoneNo); // Update with new details
+
+                    reference.child(phoneNo).setValue(updatedUser);
+                } else {
+                    // User is new, create a new entry
+                    UserHelperClass addNewUser = new UserHelperClass(" "," "," ", phoneNo);
+                    reference.child(phoneNo).setValue(addNewUser);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // handle any error
+            }
+        });
     }
 
     private void numberOtpMove() {
