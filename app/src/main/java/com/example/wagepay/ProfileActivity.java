@@ -83,20 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String newAddressValue = newAddress.getText().toString();
                 String newBusinessValue = newBusiness.getText().toString();
 
-                // Create a Bundle to hold the data
-                Bundle bundle = new Bundle();
-                bundle.putString("newName", newNameValue);
-                bundle.putString("newAddress", newAddressValue);
-                bundle.putString("newBusiness", newBusinessValue);
-
-                // Create an intent to start the target activity
-                Intent intent = new Intent(ProfileActivity.this, OtpVarificationActivity.class);
-
-                // Attach the Bundle to the intent
-                intent.putExtras(bundle);
-
-                // Start the new activity
-                startActivity(intent);
+                //  perform update function
             }
         });
 

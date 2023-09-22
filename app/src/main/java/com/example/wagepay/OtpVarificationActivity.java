@@ -86,15 +86,6 @@ public class OtpVarificationActivity extends AppCompatActivity {
         input6 = findViewById(R.id.otp6);
 
 
-        // getting data from profile
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            newName = bundle.getString("newName");
-            newAddress = bundle.getString("newAddress");
-            newBusiness = bundle.getString("newBusiness");
-        }
-
-
         TextView textView = findViewById(R.id.textNumberShow);
         phoneNo = getIntent().getStringExtra("mobile");
         textView.setText(String.format(
@@ -205,7 +196,7 @@ public class OtpVarificationActivity extends AppCompatActivity {
                     reference.child(phoneNo).setValue(updatedUser);
                 } else {
                     // User is new, create a new entry
-                    UserHelperClass addNewUser = new UserHelperClass(" "," "," ", phoneNo);
+                    UserHelperClass addNewUser = new UserHelperClass("Howdy","Howdy City"," Tea Garden ", phoneNo);
                     reference.child(phoneNo).setValue(addNewUser);
                 }
             }
@@ -316,6 +307,3 @@ public class OtpVarificationActivity extends AppCompatActivity {
 
     }
 }
-
-
-//test
