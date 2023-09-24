@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -87,7 +88,8 @@ public class OtpVarificationActivity extends AppCompatActivity {
 
 
         TextView textView = findViewById(R.id.textNumberShow);
-        phoneNo = getIntent().getStringExtra("mobile");
+        String phoneNum = getIntent().getStringExtra("mobile");
+        phoneNo= "+977" + phoneNum;
         textView.setText(String.format(
                 "+977-%s", phoneNo
         ));
@@ -186,18 +188,11 @@ public class OtpVarificationActivity extends AppCompatActivity {
         reference.child(phoneNo).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // User already exists, update their profile details
-                    UserHelperClass existingUser = dataSnapshot.getValue(UserHelperClass.class);
-
-                    // Assuming you have a User object with updated details
-                    UserHelperClass updatedUser = new UserHelperClass(newName, newAddress, newBusiness, phoneNo); // Update with new details
-
-                    reference.child(phoneNo).setValue(updatedUser);
-                } else {
-                    // User is new, create a new entry
+                if (!dataSnapshot.exists()) {
                     UserHelperClass addNewUser = new UserHelperClass("Howdy","Howdy City"," Tea Garden ", phoneNo);
                     reference.child(phoneNo).setValue(addNewUser);
+                } else {
+                   // User already exists and move on
                 }
             }
 

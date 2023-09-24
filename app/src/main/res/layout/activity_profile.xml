@@ -127,12 +127,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_30sdp"
                 android:fontFamily="@font/popins_regular"
-                android:autofillHints="businessName"
                 android:background="@drawable/custom_form_design"
                 android:textSize="@dimen/_12ssp"
                 android:padding="@dimen/_10sdp"
                 android:hint="@string/enterYourBusiness"
-                android:inputType="phone"
+                android:inputType="text"
                 tools:ignore="InvalidId" />
             <Button
                 android:id="@+id/saveChanges"
