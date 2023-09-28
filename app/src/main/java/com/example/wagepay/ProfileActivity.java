@@ -34,14 +34,12 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageView;
-
     EditText newName, newAddress, newBusiness;
     Button saveChanges;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser currentUser;
     DatabaseReference reference;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +104,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             // Retrieve and populate user data from the database using the phone number
             retrieveAndPopulateUserData(phoneNo);
+
         saveChanges = findViewById(R.id.saveChanges);
 
-        // ya nera onclick listener laaune ani update garne
+        // update functionality
             saveChanges.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -146,7 +145,6 @@ public class ProfileActivity extends AppCompatActivity {
                     // You can show a message to the user or handle it accordingly
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -182,12 +180,9 @@ public class ProfileActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
-
         return super.onOptionsItemSelected(item);
     }
-
     // this is for image picker
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
