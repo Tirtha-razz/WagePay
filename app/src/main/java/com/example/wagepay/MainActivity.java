@@ -1,17 +1,22 @@
 package com.example.wagepay;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FloatingActionButton floatingActionButton;
 
     ArrayList<WorkRecyclerModel> arrWork = new ArrayList<>();
+    WorkRecyclerAdapter adapter;
 
     BottomNavigationView bottomNavigationView;
 
@@ -142,9 +148,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         arrWork.add(new WorkRecyclerModel("work 5"));
         arrWork.add(new WorkRecyclerModel("work 6"));
         arrWork.add(new WorkRecyclerModel("work 7"));
-        arrWork.add(new WorkRecyclerModel("+"));
 
-        WorkRecyclerAdapter adapter = new WorkRecyclerAdapter(this,arrWork);
+
+        adapter = new WorkRecyclerAdapter(this,arrWork);
+        adapter.setOnSaveClickListener(new WorkRecyclerAdapter.OnSaveClickListener() {
+            @Override
+            public void onSaveClick() {
+                showDialog();
+            }
+        });
+
         recyclerView.setAdapter(adapter);
 
         //for floating action button
@@ -152,9 +165,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         floatingActionButton.setOnClickListener(v -> {
             // Start Activity 2
 
+
             startActivity(new Intent(MainActivity.this, WorkerFormActivity.class));
         });
     }
+
+    //for custom dialog
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Add work");
+        builder.setCancelable(true);
+
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        builder.setView(dialogView);
+
+
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     @Override
     public void onBackPressed(){
@@ -217,9 +250,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         logoutHandler.removeCallbacks(logoutRunnable);
     }
 
-    private void logout() {
+     private void logout() {
         // Log out the user and redirect to the login screen
         sessionManager.endSession();
         finish(); // Close the current activity
-    }
+   }
 }
