@@ -1,9 +1,21 @@
 package com.example.wagepay;
 
 public class WorkRecyclerModel {
-    String work;
+    String categoryName;
 
-    public WorkRecyclerModel(String work) {
-        this.work = work;
+    WorkRecyclerModel(){
+
+    }
+
+    public WorkRecyclerModel(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

@@ -11,7 +11,7 @@
         app:cardBackgroundColor="@color/sky_blue"
         app:cardCornerRadius="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_6sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         >
 
     <TextView

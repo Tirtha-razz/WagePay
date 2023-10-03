@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,9 +27,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -38,9 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     FloatingActionButton floatingActionButton;
 
-    ArrayList<WorkRecyclerModel> arrWork = new ArrayList<>();
-    WorkRecyclerAdapter adapter;
-
+    Button addCategory;
     BottomNavigationView bottomNavigationView;
 
     HomeFragment homeFragment = new HomeFragment();
@@ -54,6 +60,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SessionManager sessionManager;
     private final Handler logoutHandler = new Handler();
     private final Runnable logoutRunnable = this::logout;
+
+    WorkRecyclerAdapter workRecyclerAdapter;
+    RecyclerView recyclerView;
+
+    DatabaseReference databaseReference;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser currentUser;
+    String phoneNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         //for bottom navigation and fragments
-
-
         getSupportFragmentManager().beginTransaction().replace(R.id.FirstFragment,homeFragment).commit();
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
@@ -137,56 +148,105 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         //bottom navigation and fragment finish here
 
+        // Retrieve the user's phone number as the userId
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+
+        if (currentUser != null) {
+             phoneNo = currentUser.getPhoneNumber();
+        }
+
         //for recycler view of work
-        RecyclerView recyclerView = findViewById(R.id.work_recyclerView);
+        recyclerView = findViewById(R.id.work_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this ,LinearLayoutManager.HORIZONTAL,false));
 
-        arrWork.add(new WorkRecyclerModel("work 1"));
-        arrWork.add(new WorkRecyclerModel("work 2"));
-        arrWork.add(new WorkRecyclerModel("work 3"));
-        arrWork.add(new WorkRecyclerModel("work 4"));
-        arrWork.add(new WorkRecyclerModel("work 5"));
-        arrWork.add(new WorkRecyclerModel("work 6"));
-        arrWork.add(new WorkRecyclerModel("work 7"));
+        FirebaseRecyclerOptions<WorkRecyclerModel> options =
+                new FirebaseRecyclerOptions.Builder<WorkRecyclerModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users").child(phoneNo).child("Categories"), WorkRecyclerModel.class)
+                        .build();
+        workRecyclerAdapter = new WorkRecyclerAdapter(options);
+        recyclerView.setAdapter(workRecyclerAdapter);
 
+        // insertion of data in category
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
-        adapter = new WorkRecyclerAdapter(this,arrWork);
-        adapter.setOnSaveClickListener(new WorkRecyclerAdapter.OnSaveClickListener() {
+        // Inside your activity
+        addCategory = findViewById(R.id.add_category);
+        addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSaveClick() {
+            public void onClick(View v) {
+                // Show a dialog to get user input
                 showDialog();
             }
         });
-
-        recyclerView.setAdapter(adapter);
 
         //for floating action button
         floatingActionButton = findViewById(R.id.floatingButton);
         floatingActionButton.setOnClickListener(v -> {
             // Start Activity 2
-
-
             startActivity(new Intent(MainActivity.this, WorkerFormActivity.class));
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        workRecyclerAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        workRecyclerAdapter.stopListening();
+    }
+
     //for custom dialog
     public void showDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Add work");
-        builder.setCancelable(true);
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
-
         View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+
         builder.setView(dialogView);
 
+        final EditText inputField = dialogView.findViewById(R.id.cat_Name);
 
+        builder.setTitle("Add Category");
 
-        AlertDialog alert = builder.create();
-        alert.show();
+        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String userInput = inputField.getText().toString();
+
+                    if (phoneNo != null && !phoneNo.isEmpty()) {
+                        // Create a reference to the user's "categories" node
+                        DatabaseReference userCategoriesRef = databaseReference.child(phoneNo).child("Categories");
+
+                        // Generate a unique category ID
+                        String categoryId = userCategoriesRef.push().getKey();
+
+                        // Create a Category object and set its properties (you can customize your Category class)
+                        WorkRecyclerModel category = new WorkRecyclerModel(userInput);
+
+                        // Store the category under the user's "categories" node
+                        userCategoriesRef.child(categoryId).setValue(category);
+                    }
+                }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
 
 
     @Override

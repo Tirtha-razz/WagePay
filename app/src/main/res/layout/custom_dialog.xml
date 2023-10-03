@@ -7,14 +7,8 @@
     android:padding="16dp">
 
     <EditText
+        android:id="@+id/cat_Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter work title"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/dialog_ok_button"/>
 </LinearLayout>
