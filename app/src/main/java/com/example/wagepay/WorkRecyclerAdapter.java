@@ -18,7 +18,6 @@ public class WorkRecyclerAdapter extends FirebaseRecyclerAdapter<WorkRecyclerMod
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
-     * @param options
      */
     public WorkRecyclerAdapter(@NonNull FirebaseRecyclerOptions<WorkRecyclerModel> options) {
         super(options);
@@ -39,12 +38,12 @@ public class WorkRecyclerAdapter extends FirebaseRecyclerAdapter<WorkRecyclerMod
 
     }
 
-    class myViewHolder extends RecyclerView.ViewHolder{
+    static class myViewHolder extends RecyclerView.ViewHolder{
         TextView categoryName;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            categoryName = (TextView)itemView.findViewById(R.id.work_name);
+            categoryName = itemView.findViewById(R.id.work_name);
         }
     }
 }

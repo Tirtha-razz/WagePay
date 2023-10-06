@@ -1,6 +1,5 @@
 package com.example.wagepay;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -36,8 +34,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //defining variables
@@ -158,11 +154,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //for recycler view of work
         recyclerView = findViewById(R.id.work_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this ,LinearLayoutManager.HORIZONTAL,false));
+        CustomLinearLayoutManager layoutManager = new CustomLinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
         FirebaseRecyclerOptions<WorkRecyclerModel> options =
                 new FirebaseRecyclerOptions.Builder<WorkRecyclerModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users").child(phoneNo).child("Categories"), WorkRecyclerModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Categories"), WorkRecyclerModel.class)
                         .build();
         workRecyclerAdapter = new WorkRecyclerAdapter(options);
         recyclerView.setAdapter(workRecyclerAdapter);
@@ -231,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         WorkRecyclerModel category = new WorkRecyclerModel(userInput);
 
                         // Store the category under the user's "categories" node
+                        assert categoryId != null;
                         userCategoriesRef.child(categoryId).setValue(category);
                     }
                 }
