@@ -1,85 +1,82 @@
 package com.example.wagepay;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class WorkerRecyclerAdapter extends RecyclerView.Adapter<WorkerRecyclerAdapter.ViewHolder> {
+import de.hdodenhof.circleimageview.CircleImageView;
 
+public class WorkerRecyclerAdapter extends FirebaseRecyclerAdapter<WorkerRecyclerModel,WorkerRecyclerAdapter.myViewHolder>{
 
-    HomeFragment context;
-    ArrayList<WorkerRecyclerModel> arrDetails;
-    ArrayList<WorkerRecyclerModel> filteredList;
-    WorkerRecyclerAdapter(HomeFragment context, ArrayList<WorkerRecyclerModel> arrDetails){
-        this.context = context;
-        this.arrDetails = arrDetails;
-    }
-
-    public void setFilteredList(ArrayList<WorkerRecyclerModel> filteredList){
-        this.arrDetails = filteredList;
-        notifyDataSetChanged();
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context.getContext()).inflate(R.layout.worker_rec_card_design, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     */
+    public WorkerRecyclerAdapter(@NonNull FirebaseRecyclerOptions<WorkerRecyclerModel> options) {
+        super(options);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.img.setImageResource(arrDetails.get(position).img);
-        holder.txtName.setText(arrDetails.get(position).name);
-        holder.txtPhone.setText(arrDetails.get(position).phone);
+    protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull WorkerRecyclerModel model) {
+        holder.wName.setText(model.getwName());
+        holder.wNumber.setText(model.getwNumber());
 
+        Glide.with(holder.img.getContext())
+                .load(model.getwImage())
+                .placeholder(R.drawable.profile_pic)
+                .circleCrop()
+                .error(R.drawable.profile_icon)
+                .into(holder.img);
+
+        // Set an OnClickListener for the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                int clickedPosition = holder.getAdapterPosition();
-                if (clickedPosition != RecyclerView.NO_POSITION) {
-                    // Get the clicked item's data
-                    WorkerRecyclerModel clickedItem = arrDetails.get(clickedPosition);
+            public void onClick(View view) {
+                // Start the next activity and pass data
+                Context context = holder.itemView.getContext();
+                Intent intent = new Intent(context, WorkerDetailsActivity.class);
+                intent.putExtra("workerName", model.getwName()); // Pass data to the next activity
+                intent.putExtra("workerAddress", model.getwAddress());
+                intent.putExtra("workerNumber", model.getwNumber());
 
-                    // Create an intent to start the new activity
-                    Intent intent = new Intent(context.getContext(), WorkerDetailsActivity.class);
-
-                    // Pass the data to the new activity
-                    intent.putExtra("workerName", clickedItem.name);
-                    intent.putExtra("workerPhone", clickedItem.phone);
-
-                    // Start the new activity
-                    context.startActivity(intent);
-                }
+                // Add more data if needed
+                context.startActivity(intent);
             }
         });
 
     }
 
+    @NonNull
     @Override
-    public int getItemCount() {
-        return arrDetails.size();
+    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.worker_rec_card_design,parent,false);
+        return new myViewHolder(view);
+
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtName, txtPhone;
-        ImageView img;
-        public ViewHolder(@NonNull View itemView) {
+    static class myViewHolder extends RecyclerView.ViewHolder{
+        CircleImageView img;
+
+        TextView wName, wNumber;
+
+        public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName = itemView.findViewById(R.id.worker_name);
-            txtPhone = itemView.findViewById(R.id.worker_contact);
-            img = itemView.findViewById(R.id.worker_img);
+            img = (CircleImageView)itemView.findViewById(R.id.worker_img);
+            wName = itemView.findViewById(R.id.worker_name);
+            wNumber = itemView.findViewById(R.id.worker_contact);
         }
     }
 }

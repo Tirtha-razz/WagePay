@@ -25,7 +25,7 @@
                 android:layout_height="@dimen/_100sdp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:src="@drawable/hazard"
+                android:src="@drawable/profile_icon"
                 app:civ_border_color="@color/grey"
                 app:civ_border_width="@dimen/_3sdp"/>
 
@@ -57,6 +57,7 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
@@ -80,6 +81,7 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
@@ -103,6 +105,7 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
@@ -113,48 +116,6 @@
                 android:padding="@dimen/_10sdp"
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/popins_regular"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:layout_marginHorizontal="@dimen/_20sdp"
-                android:text="@string/gender"
-                android:textSize="@dimen/_14ssp"
-                android:fontFamily="@font/popins_regular"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
-
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_20sdp"
-                android:orientation="horizontal"
-                >
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_4sdp"
-                    android:fontFamily="@font/popins_regular"
-                    android:text="@string/male" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_4sdp"
-                    android:fontFamily="@font/popins_regular"
-                    android:text="@string/female" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/popins_regular"
-                    android:layout_marginRight="@dimen/_4sdp"
-                    android:text="@string/other" />
-
-            </RadioGroup>
 
 
             <TextView
@@ -169,6 +130,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
+                android:id="@+id/wage_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
@@ -180,6 +142,7 @@
                 android:fontFamily="@font/popins_regular"/>
 
             <Button
+                android:id="@+id/add_worker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_20sdp"

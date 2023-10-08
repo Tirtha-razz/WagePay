@@ -67,11 +67,11 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/LinearLayout1"
             android:layout_above="@+id/bottomNav">
+
             <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/FirstFragment"
-               />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

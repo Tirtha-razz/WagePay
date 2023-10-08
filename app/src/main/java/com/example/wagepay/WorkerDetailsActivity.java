@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 public class WorkerDetailsActivity extends AppCompatActivity {
     private TextView nameTextView;
+
+    private TextView addressTextView;
     private TextView phoneTextView;
 
     @Override
@@ -49,15 +51,19 @@ public class WorkerDetailsActivity extends AppCompatActivity {
         // Retrieve the data from the intent
         Intent intent = getIntent();
         String workerName = intent.getStringExtra("workerName");
-        String workerPhone = intent.getStringExtra("workerPhone");
+        String workerAddress = intent.getStringExtra("workerAddress");
+        String workerPhone = intent.getStringExtra("workerNumber");
 
         // Initialize your views
         nameTextView = findViewById(R.id.worker_name);
+        addressTextView = findViewById(R.id.worker_address);
         phoneTextView = findViewById(R.id.worker_contact);
 
         // Set the data in the views
         nameTextView.setText(workerName);
+        addressTextView.setText(workerAddress);
         phoneTextView.setText(workerPhone);
+
     }
 
     //this is also for toolbar when back button is pressed it goes to previous activity
