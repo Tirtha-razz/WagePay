@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -164,10 +165,10 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             // Data updated successfully
-                            // You can add a toast or a success message here
+                            Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
                         } else {
                             // Handle the error if the update fails
-                            // You can show an error message or log the error
+                            Toast.makeText(ProfileActivity.this, "Error occurred while updating profile.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

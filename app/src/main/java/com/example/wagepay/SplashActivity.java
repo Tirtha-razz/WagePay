@@ -1,5 +1,4 @@
 package com.example.wagepay;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -8,9 +7,12 @@ import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.example.wagepay.IntroActivity;
+import com.example.wagepay.MainActivity;
+import com.example.wagepay.SessionManager;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -22,12 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         sessionManager = new SessionManager(this);
 
-        if (!sessionManager.isSessionValid()) {
-            // User is not logged in, show login activity
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        }
+        // Always show the splash screen
         setContentView(R.layout.activity_splash);
 
         //set the status bar color
@@ -56,28 +53,22 @@ public class SplashActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(flags);
         }
 
+        // Check if the user has seen the intro screens before
+        introScreen = getSharedPreferences("introScreen", MODE_PRIVATE);
+        boolean isFirstTime = introScreen.getBoolean("firstTime", true);
+
         new Handler().postDelayed(() -> {
-
-            introScreen = getSharedPreferences("introScreen",MODE_PRIVATE);
-            boolean isFirstTime = introScreen.getBoolean("firstTime",true);
-
-            if(isFirstTime){
-
-                SharedPreferences.Editor editor = introScreen.edit();
-                editor.putBoolean("firstTime",false);
-                editor.apply();
-
+            if (isFirstTime) {
+                // User hasn't seen the intro screens, show them
+                introScreen.edit().putBoolean("firstTime", false).apply();
                 Intent iNext = new Intent(SplashActivity.this, IntroActivity.class);
                 startActivity(iNext);
-                finish();
-
-            }else {
-
+            } else {
+                // User has seen the intro screens, navigate to the main activity
                 Intent iNext = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(iNext);
-                finish();
             }
-
-        },3000);
+            finish();
+        }, 2000); // Show the splash screen for 2 seconds
     }
 }

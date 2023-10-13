@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -73,7 +74,8 @@ public class IntroActivity extends AppCompatActivity {
             if(getitem(0)<3)
                 mSlideViewPager.setCurrentItem(getitem(1),true);
             else{
-
+                // User has completed the intro, set the flag and navigate to the login screen
+                setUserHasSeenIntro();
                 Intent i = new Intent(IntroActivity.this,LoginActivity.class);
                 startActivity(i);
                 finish();
@@ -81,7 +83,8 @@ public class IntroActivity extends AppCompatActivity {
 
         });
         skipbtn.setOnClickListener(v -> {
-
+            // User has skipped the intro, set the flag and navigate to the login screen
+            setUserHasSeenIntro();
             Intent i = new Intent(IntroActivity.this,LoginActivity.class);
             startActivity(i);
             finish();
@@ -144,5 +147,13 @@ public class IntroActivity extends AppCompatActivity {
 
     private int getitem(int i){
         return mSlideViewPager.getCurrentItem() + i;
+    }
+
+    // Add a method to set the flag when the user completes the intro
+    private void setUserHasSeenIntro() {
+        SharedPreferences introScreen = getSharedPreferences("introScreen", MODE_PRIVATE);
+        SharedPreferences.Editor editor = introScreen.edit();
+        editor.putBoolean("firstTime", false);
+        editor.apply();
     }
 }

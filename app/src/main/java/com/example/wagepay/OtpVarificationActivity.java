@@ -90,9 +90,7 @@ public class OtpVarificationActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textNumberShow);
         String phoneNum = getIntent().getStringExtra("mobile");
         phoneNo= "+977" + phoneNum;
-        textView.setText(String.format(
-                "+977-%s", phoneNo
-        ));
+        textView.setText(phoneNo);
 
         getotpbackend = getIntent().getStringExtra("backendotp");
 
@@ -151,10 +149,10 @@ public class OtpVarificationActivity extends AppCompatActivity {
         resendlabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phoneNumber = "+977" + phoneNo;
+
                 PhoneAuthOptions options =
                         PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
-                                .setPhoneNumber(phoneNumber)
+                                .setPhoneNumber(phoneNo)
                                 .setTimeout(60L, TimeUnit.SECONDS)
                                 .setActivity(OtpVarificationActivity.this)
                                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
