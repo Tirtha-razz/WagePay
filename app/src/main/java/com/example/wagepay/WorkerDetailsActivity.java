@@ -13,8 +13,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class WorkerDetailsActivity extends AppCompatActivity {
     private TextView nameTextView;
+
+    private CircleImageView imageView;
 
     private TextView addressTextView;
     private TextView phoneTextView;
@@ -50,16 +56,21 @@ public class WorkerDetailsActivity extends AppCompatActivity {
 
         // Retrieve the data from the intent
         Intent intent = getIntent();
+        String workerImage = intent.getStringExtra(" workerImage");
         String workerName = intent.getStringExtra("workerName");
         String workerAddress = intent.getStringExtra("workerAddress");
         String workerPhone = intent.getStringExtra("workerNumber");
 
         // Initialize your views
+        imageView = findViewById(R.id.worker_image);
         nameTextView = findViewById(R.id.worker_name);
         addressTextView = findViewById(R.id.worker_address);
         phoneTextView = findViewById(R.id.worker_contact);
 
         // Set the data in the views
+        if (workerImage != null) {
+            Glide.with(this).load(workerImage).into(imageView);
+        }
         nameTextView.setText(workerName);
         addressTextView.setText(workerAddress);
         phoneTextView.setText(workerPhone);

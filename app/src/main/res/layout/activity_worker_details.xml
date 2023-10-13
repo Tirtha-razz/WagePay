@@ -18,6 +18,7 @@
         android:background="@color/green">
         
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/worker_image"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"

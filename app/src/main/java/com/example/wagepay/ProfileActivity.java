@@ -128,7 +128,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void retrieveAndPopulateUserData(String phoneNo) {
         // Initialize Firebase Database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        reference = database.getReference("Users").child(phoneNo);
+        reference = database.getReference("Users").child(phoneNo).child("Profile");
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

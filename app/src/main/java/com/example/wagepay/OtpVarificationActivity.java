@@ -185,12 +185,12 @@ public class OtpVarificationActivity extends AppCompatActivity {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         DatabaseReference reference = rootNode.getReference("Users");
 // Check if the user already exists in the database
-        reference.child(phoneNo).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(phoneNo).child("Profile").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
                     UserHelperClass addNewUser = new UserHelperClass("Howdy","Howdy City"," Tea Garden ", phoneNo);
-                    reference.child(phoneNo).setValue(addNewUser);
+                    reference.child(phoneNo).child("Profile").setValue(addNewUser);
                 } else {
                    // User already exists and move on
                 }

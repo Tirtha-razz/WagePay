@@ -47,6 +47,7 @@ public class WorkerRecyclerAdapter extends FirebaseRecyclerAdapter<WorkerRecycle
                 // Start the next activity and pass data
                 Context context = holder.itemView.getContext();
                 Intent intent = new Intent(context, WorkerDetailsActivity.class);
+                intent.putExtra("workerImage", model.getwImage());
                 intent.putExtra("workerName", model.getwName()); // Pass data to the next activity
                 intent.putExtra("workerAddress", model.getwAddress());
                 intent.putExtra("workerNumber", model.getwNumber());
