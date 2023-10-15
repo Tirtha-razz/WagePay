@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<WorkerRecyclerModel>()
                         .setQuery(FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers"), WorkerRecyclerModel.class)
                         .build();
-        workerRecyclerAdapter = new WorkerRecyclerAdapter(options);
+        workerRecyclerAdapter = new WorkerRecyclerAdapter(options,phoneNo);
         recyclerView.setAdapter(workerRecyclerAdapter);
 
         return view;
