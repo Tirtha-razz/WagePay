@@ -56,7 +56,7 @@ public class WorkerDetailsActivity extends AppCompatActivity {
 
         // Retrieve the data from the intent
         Intent intent = getIntent();
-        String workerImage = intent.getStringExtra(" workerImage");
+        String workerImage = intent.getStringExtra("workerImage");
         String workerName = intent.getStringExtra("workerName");
         String workerAddress = intent.getStringExtra("workerAddress");
         String workerPhone = intent.getStringExtra("workerNumber");
