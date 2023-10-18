@@ -128,7 +128,7 @@ public class WorkerRecyclerAdapter extends FirebaseRecyclerAdapter<WorkerRecycle
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.wName.getContext());
                 builder.setTitle("Delete Permanently !");
-                builder.setMessage("Deleted data can be recovered.");
+                builder.setMessage("Deleted data cann't be recovered.");
 
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
