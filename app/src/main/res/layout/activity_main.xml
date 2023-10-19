@@ -40,7 +40,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/green"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                   >
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/add_category"
                         android:layout_width="wrap_content"
@@ -54,7 +55,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/work_recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        />
 
                 </LinearLayout>
             </ScrollView>

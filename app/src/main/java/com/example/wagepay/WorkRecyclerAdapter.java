@@ -13,6 +13,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class WorkRecyclerAdapter extends FirebaseRecyclerAdapter<WorkRecyclerModel,WorkRecyclerAdapter.myViewHolder>{
+    private OnItemClickListener onItemClickListener; // Define an interface for item click callbacks
+    private int selectedItemPosition = RecyclerView.NO_POSITION;
+
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -27,7 +30,27 @@ public class WorkRecyclerAdapter extends FirebaseRecyclerAdapter<WorkRecyclerMod
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull WorkRecyclerModel model) {
         holder.categoryName.setText(model.getCategoryName());
 
+        // Check if the item is selected and apply the border
+        if (position == selectedItemPosition) {
+            // Apply the border or highlight to the selected item
+            holder.itemView.setBackgroundResource(R.drawable.selected_item_background); // Change this to your desired background
+        } else {
+            // Reset the background for non-selected items
+            holder.itemView.setBackgroundResource(0); // Remove the background
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            int previousSelectedItem = selectedItemPosition;
+            selectedItemPosition = holder.getAdapterPosition();
+            notifyItemChanged(previousSelectedItem); // Reset the previous selection
+            notifyItemChanged(selectedItemPosition); // Update the new selection
+
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(getRef(holder.getAdapterPosition()).getKey(), model);
+            }
+        });
     }
+
 
     @NonNull
     @Override
@@ -45,5 +68,14 @@ public class WorkRecyclerAdapter extends FirebaseRecyclerAdapter<WorkRecyclerMod
             super(itemView);
             categoryName = itemView.findViewById(R.id.work_name);
         }
+    }
+
+    // Define an interface to handle item clicks
+    public interface OnItemClickListener {
+        void onItemClick(String categoryId, WorkRecyclerModel model);
+    }
+    // Method to set the item click listener externally
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 }

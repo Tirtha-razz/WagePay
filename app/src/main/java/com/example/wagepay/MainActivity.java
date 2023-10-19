@@ -164,6 +164,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         workRecyclerAdapter = new WorkRecyclerAdapter(options);
         recyclerView.setAdapter(workRecyclerAdapter);
 
+        // Set up the click listener for the RecyclerView items
+        workRecyclerAdapter.setOnItemClickListener(new WorkRecyclerAdapter.OnItemClickListener() {
+            public void onItemClick(String categoryId, WorkRecyclerModel model) {
+                // Handle the item click event here
+                String categoryName = model.getCategoryName();
+                // You can also use the categoryId as needed
+            }
+        });
+
         // insertion of data in category
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
@@ -225,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String categoryId = userCategoriesRef.push().getKey();
 
                         // Create a Category object and set its properties (you can customize your Category class)
-                        WorkRecyclerModel category = new WorkRecyclerModel(userInput);
+                        WorkRecyclerModel category = new WorkRecyclerModel(categoryId, userInput);
 
                         // Store the category under the user's "categories" node
                         assert categoryId != null;

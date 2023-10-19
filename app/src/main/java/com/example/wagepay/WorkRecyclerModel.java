@@ -1,14 +1,23 @@
 package com.example.wagepay;
 
 public class WorkRecyclerModel {
-    String categoryName;
+    String categoryName, categoryId;
 
     WorkRecyclerModel(){
 
     }
 
-    public WorkRecyclerModel(String categoryName) {
+    public WorkRecyclerModel(String categoryId, String categoryName) {
+        this.categoryName = categoryId;
         this.categoryName = categoryName;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {
