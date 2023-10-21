@@ -8,7 +8,7 @@ public class WorkRecyclerModel {
     }
 
     public WorkRecyclerModel(String categoryId, String categoryName) {
-        this.categoryName = categoryId;
+        this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
 

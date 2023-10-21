@@ -1,10 +1,14 @@
 package com.example.wagepay;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,9 +28,14 @@ public class HomeFragment extends Fragment {
 
     FirebaseUser currentUser;
     String phoneNo;
+    String selectedCategoryId;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Access the selectedCategoryId from SharedPreferences in your MainActivity
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        selectedCategoryId = sharedPreferences.getString("selectedCategoryId", null);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -55,21 +64,37 @@ public class HomeFragment extends Fragment {
             phoneNo = currentUser.getPhoneNumber();
         }
 
+        // Check if a category ID has been selected
+        if (selectedCategoryId != null) {
 
-        //for recycler view of worker list
+            // Debug print statement
+            Log.d("DEBUG", "Selected Category ID: " + selectedCategoryId);
+
+            // Query workers associated with the selected category
+            FirebaseRecyclerOptions<WorkerRecyclerModel> options =
+                    new FirebaseRecyclerOptions.Builder<WorkerRecyclerModel>()
+                            .setQuery(FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers").orderByChild("categoryId").equalTo(selectedCategoryId), WorkerRecyclerModel.class)
+                            .build();
+            workerRecyclerAdapter = new WorkerRecyclerAdapter(options, phoneNo, selectedCategoryId);
+        } else {
+            // Debug print statement
+            Log.d("DEBUG", "No selected category. Displaying all workers.");
+
+            // Default query for all workers
+            FirebaseRecyclerOptions<WorkerRecyclerModel> options =
+                    new FirebaseRecyclerOptions.Builder<WorkerRecyclerModel>()
+                            .setQuery(FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers"), WorkerRecyclerModel.class)
+                            .build();
+            workerRecyclerAdapter = new WorkerRecyclerAdapter(options, phoneNo, selectedCategoryId);
+        }
+
         RecyclerView recyclerView = view.findViewById(R.id.worker_recyclerView);
         CustomLinearLayoutManager layoutManager = new CustomLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
-
-        FirebaseRecyclerOptions<WorkerRecyclerModel> options =
-                new FirebaseRecyclerOptions.Builder<WorkerRecyclerModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers"), WorkerRecyclerModel.class)
-                        .build();
-        workerRecyclerAdapter = new WorkerRecyclerAdapter(options,phoneNo);
         recyclerView.setAdapter(workerRecyclerAdapter);
 
         return view;
+
     }
 
     @Override

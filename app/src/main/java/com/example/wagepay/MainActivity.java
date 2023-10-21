@@ -2,6 +2,7 @@ package com.example.wagepay;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SessionManager sessionManager;
     private final Handler logoutHandler = new Handler();
     private final Runnable logoutRunnable = this::logout;
+
+    private String selectedCategoryId;
 
     WorkRecyclerAdapter workRecyclerAdapter;
     RecyclerView recyclerView;
@@ -169,7 +172,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onItemClick(String categoryId, WorkRecyclerModel model) {
                 // Handle the item click event here
                 String categoryName = model.getCategoryName();
-                // You can also use the categoryId as needed
+                selectedCategoryId = categoryId; // Set the selected category ID using model.getCategoryId()
+
+                // Store selectedCategoryId in SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("selectedCategoryId", selectedCategoryId);
+                editor.apply();
             }
         });
 
@@ -237,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         WorkRecyclerModel category = new WorkRecyclerModel(categoryId, userInput);
 
                         // Store the category under the user's "categories" node
-                        assert categoryId != null;
                         userCategoriesRef.child(categoryId).setValue(category);
                     }
                 }

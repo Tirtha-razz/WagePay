@@ -34,10 +34,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class WorkerRecyclerAdapter extends FirebaseRecyclerAdapter<WorkerRecyclerModel,WorkerRecyclerAdapter.myViewHolder>{
 
     private String phoneNo; // Add a member variable to store the phone number
-
-    public WorkerRecyclerAdapter(FirebaseRecyclerOptions<WorkerRecyclerModel> options, String phoneNo) {
+    private String selectedCategoryId; // Add a member variable to store the selected category ID
+    public WorkerRecyclerAdapter(FirebaseRecyclerOptions<WorkerRecyclerModel> options, String phoneNo, String selectedCategoryId) {
         super(options);
         this.phoneNo = phoneNo; // Store the phone number passed to the constructor
+        this.selectedCategoryId = selectedCategoryId;
     }
 
     /**

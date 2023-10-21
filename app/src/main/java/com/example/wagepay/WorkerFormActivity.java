@@ -1,6 +1,8 @@
 package com.example.wagepay;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +46,7 @@ public class WorkerFormActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser currentUser;
     String phoneNo;
+    String selectedCategoryId;
 
     private static final int IMAGE_PICKER_REQUEST_CODE = 123;
 
@@ -51,6 +54,11 @@ public class WorkerFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.worker_form);
+        // Initialize SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+        // Retrieve the selectedCategoryId from SharedPreferences
+        selectedCategoryId = sharedPreferences.getString("selectedCategoryId", null);
 
         //set the status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -70,6 +78,8 @@ public class WorkerFormActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Add New Worker");
         setSupportActionBar(toolbar);
+
+
 
         // Initialize Firebase
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -120,27 +130,31 @@ public class WorkerFormActivity extends AppCompatActivity {
     }
 
     private void insertWorker(){
-        Map<String, Object> map = new HashMap<>();
-        map.put("wName", wName.getText().toString());
-        map.put("wAddress", wAddress.getText().toString());
-        map.put("wNumber", wNumber.getText().toString());
-        map.put("wWageRate", wWageRate.getText().toString());
-        map.put("wImage", imageUrl);
+        if (selectedCategoryId != null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("wName", wName.getText().toString());
+            map.put("wAddress", wAddress.getText().toString());
+            map.put("wNumber", wNumber.getText().toString());
+            map.put("wWageRate", wWageRate.getText().toString());
+            map.put("wImage", imageUrl);
+            map.put("categoryId",selectedCategoryId ); // Add the category ID
 
-        FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers").push()
-                .setValue(map)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(WorkerFormActivity.this, "Data Inserted Successfully.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(Exception e) {
-                        Toast.makeText(WorkerFormActivity.this, "Error While Insertion.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers").push()
+                    .setValue(map)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(WorkerFormActivity.this, "Data Inserted Successfully.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(Exception e) {
+                            Toast.makeText(WorkerFormActivity.this, "Error While Insertion.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
     }
     private void clearAll(){
         wName.setText("");
