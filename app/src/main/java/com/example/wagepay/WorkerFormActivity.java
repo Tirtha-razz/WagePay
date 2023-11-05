@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -107,8 +108,14 @@ public class WorkerFormActivity extends AppCompatActivity {
         addWorker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertWorker();
-                clearAll();
+                if(wName.getText().length() != 0 && wAddress.getText().length() != 0 && wNumber.getText().length() != 0 && wWageRate.getText().length() != 0){
+                    insertWorker();
+                    clearAll();
+                }
+                else{
+                    Toast.makeText(WorkerFormActivity.this, "Please enter all the fields.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -131,16 +138,24 @@ public class WorkerFormActivity extends AppCompatActivity {
 
     private void insertWorker(){
         if (selectedCategoryId != null) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("wName", wName.getText().toString());
-            map.put("wAddress", wAddress.getText().toString());
-            map.put("wNumber", wNumber.getText().toString());
-            map.put("wWageRate", wWageRate.getText().toString());
-            map.put("wImage", imageUrl);
-            map.put("categoryId",selectedCategoryId ); // Add the category ID
+            // Get a reference to the "Workers" node
+            DatabaseReference workersRef = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers");
 
-            FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers").push()
-                    .setValue(map)
+            // Generate a unique key for the worker using push()
+            String uniqueKey = workersRef.push().getKey();
+
+            // Create a Map to store the worker data including workerId
+            Map<String, Object> workerData = new HashMap<>();
+            workerData.put("workerId", uniqueKey);
+            workerData.put("wName", wName.getText().toString());
+            workerData.put("wAddress", wAddress.getText().toString());
+            workerData.put("wNumber", wNumber.getText().toString());
+            workerData.put("wWageRate", wWageRate.getText().toString());
+            workerData.put("wImage", imageUrl);
+            workerData.put("categoryId", selectedCategoryId);
+
+            // Set the worker data with the generated key
+            workersRef.child(uniqueKey).setValue(workerData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

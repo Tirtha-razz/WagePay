@@ -4,102 +4,108 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
-public class AttendanceRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    private static final int VIEW_TYPE_ITEM = 0;
-    private static final int VIEW_TYPE_SAVE_BUTTON = 1;
+public class AttendanceRecyclerAdapter extends FirebaseRecyclerAdapter<AttendanceRecyclerModel, AttendanceRecyclerAdapter.ItemViewHolder> {
+    String phoneNo;
+    private Map<String, String> attendanceStatusMap;
 
-    private AttendanceFragment context;
-    private ArrayList<AttendanceRecyclerModel> arrAttendance;
-    private OnSaveClickListener onSaveClickListener;
-
-    public interface OnSaveClickListener {
-        void onSaveClick();
+    public AttendanceRecyclerAdapter(@NonNull FirebaseRecyclerOptions<AttendanceRecyclerModel> options, String phoneNo) {
+        super(options);
+        this.phoneNo = phoneNo;
+        this.attendanceStatusMap = new HashMap<>();
     }
 
-    public AttendanceRecyclerAdapter(AttendanceFragment context, ArrayList<AttendanceRecyclerModel> arrAttendance) {
-        this.context = context;
-        this.arrAttendance = arrAttendance;
+    public String getAttendanceStatus(String workerId) {
+        // Retrieve the attendance status for a specific worker
+        return attendanceStatusMap.get(workerId);
     }
-
-    public void setOnSaveClickListener(OnSaveClickListener listener) {
-        onSaveClickListener = listener;
-    }
-
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context.getContext());
-
-        if (viewType == VIEW_TYPE_ITEM) {
-            View view = inflater.inflate(R.layout.attendence_card_design, parent, false);
-            return new ViewHolder(view);
-        } else if (viewType == VIEW_TYPE_SAVE_BUTTON) {
-            View view = inflater.inflate(R.layout.save_button_layout, parent, false);
-            return new SaveButtonViewHolder(view);
-        }
-
-        throw new IllegalArgumentException("Invalid view type");
+    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.attendence_card_design, parent, false);
+        return new ItemViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder) {
-            ViewHolder itemHolder = (ViewHolder) holder;
-            AttendanceRecyclerModel item = arrAttendance.get(position);
-            itemHolder.img.setImageResource(item.img);
-            itemHolder.txtName.setText(item.name);
-        } else if (holder instanceof SaveButtonViewHolder) {
-            SaveButtonViewHolder saveButtonHolder = (SaveButtonViewHolder) holder;
-            saveButtonHolder.btnSave.setOnClickListener(v -> {
-                if (onSaveClickListener != null) {
-                    onSaveClickListener.onSaveClick();
-                }
-            });
-        }
-    }
+    protected void onBindViewHolder(@NonNull ItemViewHolder holder, int position, @NonNull AttendanceRecyclerModel model) {
+        holder.txtName.setText(model.getwName());
 
-    @Override
-    public int getItemCount() {
-        // Add 1 to the item count for the "Save" button item
-        return arrAttendance.size() + 1;
-    }
+        Glide.with(holder.img.getContext())
+                .load(model.getwImage())
+                .placeholder(R.drawable.profile_pic)
+                .circleCrop()
+                .error(R.drawable.profile_icon)
+                .into(holder.img);
+        // Get the worker's ID from the model based on the position
+        String workerId = model.getWorkerId();
 
-    @Override
-    public int getItemViewType(int position) {
-        // Determine which view type to use based on the position
-        if (position == arrAttendance.size()) {
-            return VIEW_TYPE_SAVE_BUTTON;
+        // Set the checkbox state based on the attendanceStatusMap
+        if (attendanceStatusMap.containsKey(workerId)) {
+            String attendanceStatus = attendanceStatusMap.get(workerId);
+            holder.checkbox.setChecked("present".equals(attendanceStatus));
         } else {
-            return VIEW_TYPE_ITEM;
+            holder.checkbox.setChecked(false); // Default to "absent"
         }
+
+        // Handle changes in the checkbox state
+        holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String attendanceStatus = isChecked ? "present" : "absent";
+            attendanceStatusMap.put(workerId, attendanceStatus);
+        });
+
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
+        public CompoundButton checkbox;
         TextView txtName;
-        ImageView img;
+        CircleImageView img;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.worker_name);
             img = itemView.findViewById(R.id.worker_img);
+            checkbox = itemView.findViewById(R.id.checkbox);
         }
     }
 
-    public class SaveButtonViewHolder extends RecyclerView.ViewHolder {
-        Button btnSave;
-
-        public SaveButtonViewHolder(@NonNull View itemView) {
-            super(itemView);
-            btnSave = itemView.findViewById(R.id.btnSave);
-        }
+// Add a method to get the attendance status map
+    public Map<String, String> getAttendanceStatusMap() {
+        return attendanceStatusMap;
     }
+
+
+    private String getCurrentDate() {
+        // Get the current date and time
+        Calendar calendar = Calendar.getInstance();
+
+        // Define the date format you want (e.g., "yyyy-MM-dd HH:mm:ss")
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        // Format the current date
+        String formattedDate = dateFormat.format(calendar.getTime());
+
+        return formattedDate;
+    }
+
 }

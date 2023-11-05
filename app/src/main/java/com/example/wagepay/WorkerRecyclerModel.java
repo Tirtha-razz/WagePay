@@ -3,19 +3,21 @@ package com.example.wagepay;
 public class WorkerRecyclerModel {
    String wImage, wName, wAddress, wNumber, wWageRate;
    String categoryId;
+   String workerId;
 
     WorkerRecyclerModel ()
     {
 
     }
 
-    public WorkerRecyclerModel(String wImage, String wName, String wAddress, String wNumber, String wWageRate, String categoryId) {
+    public WorkerRecyclerModel(String wImage, String wName, String wAddress, String wNumber, String wWageRate, String categoryId, String workerId) {
         this.wImage = wImage;
         this.wName = wName;
         this.wAddress = wAddress;
         this.wNumber = wNumber;
         this.wWageRate = wWageRate;
         this.categoryId = categoryId;
+        this.workerId = workerId;
     }
 
     public String getwImage() {
@@ -64,5 +66,13 @@ public class WorkerRecyclerModel {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(String workerId) {
+        this.workerId = workerId;
     }
 }

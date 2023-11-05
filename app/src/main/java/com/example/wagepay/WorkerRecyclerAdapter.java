@@ -129,7 +129,7 @@ public class WorkerRecyclerAdapter extends FirebaseRecyclerAdapter<WorkerRecycle
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.wName.getContext());
                 builder.setTitle("Delete Permanently !");
-                builder.setMessage("Deleted data cann't be recovered.");
+                builder.setMessage("Deleted data can't be recovered.");
 
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
@@ -161,6 +161,9 @@ public class WorkerRecyclerAdapter extends FirebaseRecyclerAdapter<WorkerRecycle
                 intent.putExtra("workerName", model.getwName()); // Pass data to the next activity
                 intent.putExtra("workerAddress", model.getwAddress());
                 intent.putExtra("workerNumber", model.getwNumber());
+                intent.putExtra("workerId",model.getWorkerId());
+                intent.putExtra("wageRate",model.getwWageRate());
+
 
                 // Add more data if needed
                 context.startActivity(intent);

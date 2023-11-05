@@ -21,7 +21,8 @@
         android:fontFamily="@font/popins_regular"
         android:textColor="@color/white"
         android:textSize="@dimen/_14ssp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:id="@+id/headerUsername"/>
 
 
 </LinearLayout>

@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -33,8 +34,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //defining variables
@@ -106,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView headerUsername = headerView.findViewById(R.id.headerUsername);
+
         toolbar = findViewById(R.id.toolbar);
         bottomNavigationView = findViewById(R.id.bottomNav);
 
@@ -115,8 +123,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         homeMenuItem.setChecked(true); // Set the home menu item as checked
 
         // toolbar
-        toolbar.setTitle("Sudip Baral");
         setSupportActionBar(toolbar);
+        //toolbar.setTitle("yhhgh");
+        //setSupportActionBar(toolbar);
+
 
 
 
@@ -154,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (currentUser != null) {
              phoneNo = currentUser.getPhoneNumber();
         }
+        updateHeaderUsername();
+        updateToolbarTitle();
 
         //for recycler view of work
         recyclerView = findViewById(R.id.work_recyclerView);
@@ -261,7 +273,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+    private void updateHeaderUsername() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Profile").child("name");
 
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String userName = dataSnapshot.getValue(String.class);
+                    TextView headerUsername = findViewById(R.id.headerUsername);
+                    headerUsername.setText(userName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any database error if needed
+            }
+        });
+    }
+
+    private void updateToolbarTitle() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Profile").child("name");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String userName = dataSnapshot.getValue(String.class);
+                    toolbar.setTitle(userName);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any database error if needed
+            }
+        });
+    }
 
 
     @Override

@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView imageView;
     EditText newName, newAddress, newBusiness;
     Button saveChanges;
-
+    TextView mainText;
     FirebaseAuth firebaseAuth;
     FirebaseUser currentUser;
     DatabaseReference reference;
@@ -74,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         newName = findViewById(R.id.newName);
         newAddress= findViewById(R.id.newAddress);
         newBusiness = findViewById(R.id.newBusiness);
+        mainText = findViewById(R.id.textView3);
 
         //for image picker
         imageView = findViewById(R.id.profileImage);
@@ -141,6 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
                     newName.setText(user.getName());
                     newAddress.setText(user.getAddress());
                     newBusiness.setText(user.getBusiness());
+                    mainText.setText(user.getName());
                 } else {
                     // Handle the case where the data doesn't exist
                     // You can show a message to the user or handle it accordingly

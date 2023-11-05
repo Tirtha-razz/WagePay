@@ -25,7 +25,7 @@
 
     <string name="advanceDetails">Advance Paid Details</string>
     <string name="dueDetails">Due Payment Details</string>
-    <string name="paymentHistory">Payment History</string>
+    <string name="paymentHistory">Total Payments</string>
 
     <!--    sudip-->
     <string name="user_name">Sudip Baral</string>

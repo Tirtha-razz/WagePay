@@ -19,7 +19,8 @@
             android:layout_weight="1"
             android:layout_margin="@dimen/_5sdp"
             app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="@dimen/_8sdp">
+            app:cardElevation="@dimen/_8sdp"
+            android:id="@+id/advancePaidDetails">
 
             <!-- Place your content (icon and text) for the third card here -->
             <LinearLayout
@@ -52,7 +53,8 @@
             android:layout_weight="1"
             android:layout_margin="@dimen/_5sdp"
             app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="@dimen/_8sdp">
+            app:cardElevation="@dimen/_8sdp"
+            android:id="@+id/duePaymentDetails">
 
             <!-- Place your content (icon and text) for the third card here -->
             <LinearLayout
@@ -86,7 +88,8 @@
             android:layout_weight="1"
             android:layout_margin="@dimen/_5sdp"
             app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="@dimen/_8sdp">
+            app:cardElevation="@dimen/_8sdp"
+            android:id="@+id/paymentHistory">
 
             <!-- Place your content (icon and text) for the third card here -->
             <LinearLayout
