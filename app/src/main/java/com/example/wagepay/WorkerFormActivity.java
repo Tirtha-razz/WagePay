@@ -109,8 +109,16 @@ public class WorkerFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(wName.getText().length() != 0 && wAddress.getText().length() != 0 && wNumber.getText().length() != 0 && wWageRate.getText().length() != 0){
-                    insertWorker();
-                    clearAll();
+                    if(wNumber.getText().length() != 10){
+                        Toast.makeText(WorkerFormActivity.this, "Phone number didn't matched.", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        insertWorker();
+                        clearAll();
+                    }
+
+
                 }
                 else{
                     Toast.makeText(WorkerFormActivity.this, "Please enter all the fields.", Toast.LENGTH_SHORT).show();
