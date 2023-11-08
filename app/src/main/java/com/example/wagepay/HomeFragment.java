@@ -125,4 +125,25 @@ public class HomeFragment extends Fragment {
 //        }
 //    }
 
+    // This method updates the data in the fragment based on the selected category
+    public void updateDataBasedOnCategory(String selectedCategoryId) {
+        if (selectedCategoryId != null) {
+            FirebaseRecyclerOptions<WorkerRecyclerModel> options =
+                    new FirebaseRecyclerOptions.Builder<WorkerRecyclerModel>()
+                            .setQuery(FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers").orderByChild("categoryId").equalTo(selectedCategoryId), WorkerRecyclerModel.class)
+                            .build();
+            workerRecyclerAdapter = new WorkerRecyclerAdapter(options, phoneNo, selectedCategoryId);
+        } else {
+            FirebaseRecyclerOptions<WorkerRecyclerModel> options =
+                    new FirebaseRecyclerOptions.Builder<WorkerRecyclerModel>()
+                            .setQuery(FirebaseDatabase.getInstance().getReference("Users").child(phoneNo).child("Workers"), WorkerRecyclerModel.class)
+                            .build();
+            workerRecyclerAdapter = new WorkerRecyclerAdapter(options, phoneNo, selectedCategoryId);
+        }
+
+        RecyclerView recyclerView = requireView().findViewById(R.id.worker_recyclerView);
+        recyclerView.setAdapter(workerRecyclerAdapter);
+        workerRecyclerAdapter.startListening();
+    }
+
 }

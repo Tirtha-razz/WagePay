@@ -191,6 +191,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("selectedCategoryId", selectedCategoryId);
                 editor.apply();
+                // Call the updateDataBasedOnCategory method in HomeFragment to refresh the data
+                if (homeFragment != null) {
+                    homeFragment.updateDataBasedOnCategory(selectedCategoryId);
+                }
             }
         });
 
