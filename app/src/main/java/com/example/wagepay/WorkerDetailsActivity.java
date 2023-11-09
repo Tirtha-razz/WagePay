@@ -112,19 +112,12 @@ public class WorkerDetailsActivity extends AppCompatActivity {
         wageTextView = findViewById(R.id.wageDue);
         payment_button = findViewById(R.id.payment_button);
         paymentDetails = findViewById(R.id.paymentDetails);
-        attendanceDetails = findViewById(R.id.attendanceDetails);
+
 
         payment_button.setOnClickListener(v -> payPayment());
         paymentDetails.setOnClickListener(v -> {
             Intent newIntent = new Intent(WorkerDetailsActivity.this, PaymentDetails.class);
             newIntent.putExtra("workerId",workerId);
-            // Start the new activity
-            startActivity(newIntent);
-        });
-
-        attendanceDetails.setOnClickListener(v -> {
-            Intent newIntent = new Intent(WorkerDetailsActivity.this, AttendanceDetails.class);
-
             // Start the new activity
             startActivity(newIntent);
         });

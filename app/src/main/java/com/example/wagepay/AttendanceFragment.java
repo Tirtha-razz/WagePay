@@ -115,6 +115,7 @@ public class AttendanceFragment extends Fragment {
                         // Attendance record updated successfully
                         Toast.makeText(getActivity(), "Attendance recorded.", Toast.LENGTH_SHORT).show();
                     })
+
                     .addOnFailureListener(e -> {
                         // Handle any errors that may occur
                         Toast.makeText(getActivity(), "Error while recording attendance.", Toast.LENGTH_SHORT).show();

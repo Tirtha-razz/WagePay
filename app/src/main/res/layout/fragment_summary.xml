@@ -13,39 +13,6 @@
         android:orientation="horizontal"
         android:layout_margin="@dimen/_5sdp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/_5sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="@dimen/_8sdp"
-            android:id="@+id/advancePaidDetails">
-
-            <!-- Place your content (icon and text) for the third card here -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:src="@drawable/advance" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:fontFamily="@font/popins_regular"
-                    android:text="@string/advanceDetails"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
